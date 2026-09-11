@@ -112,36 +112,91 @@
         }
 
         .now-playing { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+
+        .video-col { flex: 1 1 260px; max-width: 340px; display: flex; flex-direction: column; gap: 8px; }
         .video-frame {
-            flex: 1 1 260px; max-width: 340px;
+            width: 100%;
             border-radius: 12px; overflow: hidden;
             aspect-ratio: 16/9; background: #000;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: box-shadow 0.25s ease;
         }
         .side-header.a ~ .card .video-frame { border: 4px solid var(--pink-hot); }
         .card.side-b .video-frame { border: 4px solid var(--amber); }
+        .video-frame.pulse { box-shadow: 0 0 0 5px rgba(255,110,199,0.55), 0 8px 20px rgba(0,0,0,0.3); }
+        .card.side-b .video-frame.pulse { box-shadow: 0 0 0 5px rgba(200,113,47,0.55), 0 8px 20px rgba(0,0,0,0.3); }
         .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+        /* now-playing readout + tiny stage of dancers/equalizer, synced to actual play state */
+        .now-title {
+            display: flex; align-items: center; gap: 7px;
+            font-weight: 700; font-size: 0.82rem; color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+            min-height: 1.1em;
+        }
+        .now-title .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; flex: none; animation: blink 1.4s ease-in-out infinite; }
+        .now-title.paused .dot { background: #aaa; box-shadow: none; animation: none; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+        .stage-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(0,0,0,0.28); border-radius: 10px; padding: 7px 10px; }
+        .eq { display: flex; align-items: flex-end; gap: 3px; height: 20px; }
+        .eq-bar { width: 4px; border-radius: 2px; background: linear-gradient(180deg, var(--pink-hot), var(--pink)); height: 15%; transition: height 0.18s ease; }
+        .card.side-b .eq-bar { background: linear-gradient(180deg, #ffd08a, var(--amber)); }
+
+        .dancers { display: flex; gap: 5px; }
+        .dancer { display: inline-block; font-size: 1.05rem; line-height: 1; transform-origin: bottom center; animation: boogie 0.9s ease-in-out infinite; animation-play-state: paused; will-change: transform; }
+        .dancer:nth-child(2) { animation-delay: 0.15s; font-size: 1.2rem; }
+        .dancer:nth-child(3) { animation-delay: 0.3s; }
+        .stage-bar.playing .dancer { animation-play-state: running; }
+        @keyframes boogie {
+            0%, 100% { transform: translateY(0) rotate(-9deg); }
+            50% { transform: translateY(-5px) rotate(9deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .dancer, .eq-bar, .now-title .dot { animation: none !important; }
+        }
 
         .playlist { flex: 1 1 240px; min-width: 200px; }
         .playlist-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9c8; font-weight: 700; margin-bottom: 8px; }
         .card:not(.side-b) .playlist-label { color: #b04a92; }
         .card.side-b .playlist-label { color: #a5652b; }
-        .playlist ol { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-        .playlist li a {
-            display: flex; align-items: center; gap: 10px;
+        .playlist ol {
+            list-style: none; display: flex; flex-direction: column; gap: 6px;
+            max-height: 340px; overflow-y: auto; padding-right: 4px;
+        }
+        .playlist ol::-webkit-scrollbar { width: 6px; }
+        .playlist ol::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+        .playlist li { display: flex; align-items: stretch; gap: 6px; }
+        .playlist li .track-btn {
+            flex: 1; display: flex; align-items: center; gap: 10px;
             text-decoration: none; color: var(--ink);
             background: #f7f2f5;
             border: 2px solid transparent;
             border-radius: 10px;
-            padding: 8px 12px;
+            padding: 10px 12px;
             font-size: 0.88rem;
             font-weight: 500;
-            transition: transform 0.15s ease, border-color 0.15s ease;
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+            min-height: 40px;
         }
-        .card:not(.side-b) .playlist li a:hover { border-color: var(--pink-hot); transform: translateX(4px); }
-        .card.side-b .playlist li a:hover { border-color: var(--amber); transform: translateX(4px); }
-        .playlist li .track-num { font-family: 'Bebas Neue', sans-serif; width: 1.4em; opacity: 0.5; }
-        .fact-strip { margin-top: 14px; font-size: 0.78rem; color: #8a7d8f; border-top: 1px dashed #e5dde0; padding-top: 10px; }
+        .card:not(.side-b) .playlist li .track-btn:hover { border-color: var(--pink-hot); transform: translateX(4px); }
+        .card.side-b .playlist li .track-btn:hover { border-color: var(--amber); transform: translateX(4px); }
+        .card:not(.side-b) .playlist li .track-btn.active { border-color: var(--pink-hot); background: #fff0f8; }
+        .card.side-b .playlist li .track-btn.active { border-color: var(--amber); background: #fff6ec; }
+        .playlist li .track-btn.active .track-num { opacity: 1; }
+        .playlist li .track-num { font-family: 'Bebas Neue', sans-serif; width: 1.4em; opacity: 0.5; flex: none; }
+        .playlist li .track-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .playlist li .track-ext {
+            flex: none; display: flex; align-items: center; justify-content: center;
+            width: 34px; border-radius: 10px; background: #f7f2f5; color: #9c8fa0;
+            text-decoration: none; font-size: 0.95rem; transition: background 0.15s ease, color 0.15s ease;
+        }
+        .card:not(.side-b) .playlist li .track-ext:hover { background: #fff0f8; color: var(--pink-hot); }
+        .card.side-b .playlist li .track-ext:hover { background: #fff6ec; color: var(--amber); }
+        .fact-strip { margin-top: 14px; font-size: 0.78rem; color: #8a7d8f; border-top: 1px dashed #e5dde0; padding-top: 10px; transition: opacity 0.15s ease; }
 
         /* hub grid */
         .section-title {
@@ -261,7 +316,21 @@
 
         @media (max-width: 560px) {
             .now-playing { flex-direction: column; }
-            .video-frame { max-width: 100%; }
+            .video-col { max-width: 100%; }
+            .playlist ol { max-height: none; }
+        }
+
+        /* tablets (iPad portrait/landscape and similar) */
+        @media (min-width: 561px) and (max-width: 900px) {
+            .main-wrapper { max-width: 100%; padding: 34px 28px 100px; }
+            .video-col { max-width: 300px; }
+            .hub-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .playlist li .track-btn { min-height: 44px; }
+            .playlist li .track-ext { min-width: 40px; }
+            .hub-card:hover { transform: none; }
         }
     </style>
 </head>
@@ -287,19 +356,31 @@
         </div>
         <div class="card">
             <div class="now-playing">
-                <div class="video-frame">
-                    <iframe src="https://www.youtube.com/embed/7F1ET2XHQfk" title="KATSEYE - PINKY UP (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-col">
+                    <div class="video-frame">
+                        <iframe id="player-a" src="https://www.youtube.com/embed/7F1ET2XHQfk?enablejsapi=1&playsinline=1&rel=0" title="KATSEYE - PINKY UP (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="now-title paused" id="now-title-a"><span class="dot"></span><span class="now-title-text">Pinky Up</span></div>
+                    <div class="stage-bar" id="stage-a">
+                        <div class="dancers" aria-hidden="true"><span class="dancer">🕺</span><span class="dancer">💃</span><span class="dancer">🕺</span></div>
+                        <div class="eq" aria-hidden="true"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>
+                    </div>
                 </div>
                 <div class="playlist">
                     <div class="playlist-label">Track List</div>
-                    <ol>
-                        <li><a href="https://www.youtube.com/watch?v=7F1ET2XHQfk" target="_blank" rel="noopener noreferrer"><span class="track-num">01</span> Pinky Up</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=-bC4iak3kxg" target="_blank" rel="noopener noreferrer"><span class="track-num">02</span> Gameboy</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=R2-yomhYAj4" target="_blank" rel="noopener noreferrer"><span class="track-num">03</span> Gnarly</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=l9CZykYZkOQ" target="_blank" rel="noopener noreferrer"><span class="track-num">04</span> Touch</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=5q9EjSUovc4" target="_blank" rel="noopener noreferrer"><span class="track-num">05</span> Internet Girl</a></li>
+                    <ol id="playlist-a">
+                        <li><button type="button" class="track-btn active" data-id="7F1ET2XHQfk" data-fact="Lead single off KATSEYE's 2026 EP &lt;strong&gt;Wild&lt;/strong&gt; — they're out on the &lt;strong&gt;Wildworld Tour&lt;/strong&gt; right now."><span class="track-num">01</span><span class="track-title">Pinky Up</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=7F1ET2XHQfk" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Pinky Up on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="R2-yomhYAj4" data-fact="From the EP &lt;strong&gt;Beautiful Chaos&lt;/strong&gt; — the official video hit 5M+ YouTube views in its first weeks."><span class="track-num">02</span><span class="track-title">Gnarly</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=R2-yomhYAj4" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Gnarly on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="CjnB56tSCQI" data-fact="Peaked at &lt;strong&gt;#21 on the Billboard Hot 100&lt;/strong&gt; — their highest chart position yet."><span class="track-num">03</span><span class="track-title">Gabriela</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=CjnB56tSCQI" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Gabriela on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="-bC4iak3kxg" data-fact="Off the 2026 EP &lt;strong&gt;Wild&lt;/strong&gt;, same era as Pinky Up."><span class="track-num">04</span><span class="track-title">Gameboy</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=-bC4iak3kxg" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Gameboy on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="qNP7YuX91yk" data-fact="Track 4 on &lt;strong&gt;Beautiful Chaos&lt;/strong&gt; (2025)."><span class="track-num">05</span><span class="track-title">Mean Girls</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=qNP7YuX91yk" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Mean Girls on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="l9CZykYZkOQ" data-fact="Blew up after a dance challenge to it went viral on TikTok worldwide."><span class="track-num">06</span><span class="track-title">Touch</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=l9CZykYZkOQ" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Touch on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="5q9EjSUovc4" data-fact="Dropped January 2, 2026 — kicked off their new era."><span class="track-num">07</span><span class="track-title">Internet Girl</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=5q9EjSUovc4" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Internet Girl on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="bYg6aMDQ_TA" data-fact="Their very first single — the video was shot on location in Medellín, Colombia."><span class="track-num">08</span><span class="track-title">Debut</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=bYg6aMDQ_TA" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Debut on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="w8Nx7yPfxUk" data-fact="Off &lt;strong&gt;Beautiful Chaos&lt;/strong&gt;, directed by Aerin Moreno."><span class="track-num">09</span><span class="track-title">M.I.A</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=w8Nx7yPfxUk" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open M.I.A on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="1P8BbTY8gWo" data-fact="From their debut EP &lt;strong&gt;SIS (Soft Is Strong)&lt;/strong&gt;, 2024."><span class="track-num">10</span><span class="track-title">My Way</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=1P8BbTY8gWo" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open My Way on YouTube">↗</a></li>
                     </ol>
-                    <div class="fact-strip">"Pinky Up" is the lead single off KATSEYE's 2026 EP <strong>Wild</strong> — they're out on the <strong>Wildworld Tour</strong> right now.</div>
+                    <div class="fact-strip" id="fact-a">"Pinky Up" is the lead single off KATSEYE's 2026 EP <strong>Wild</strong> — they're out on the <strong>Wildworld Tour</strong> right now.</div>
                 </div>
             </div>
         </div>
@@ -311,17 +392,31 @@
         </div>
         <div class="card side-b">
             <div class="now-playing">
-                <div class="video-frame">
-                    <iframe src="https://www.youtube.com/embed/cq43FrpXGQs" title="honestav - I'd Rather Overdose (ft. Z) (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-col">
+                    <div class="video-frame">
+                        <iframe id="player-b" src="https://www.youtube.com/embed/cq43FrpXGQs?enablejsapi=1&playsinline=1&rel=0" title="honestav - I'd Rather Overdose (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="now-title paused" id="now-title-b"><span class="dot"></span><span class="now-title-text">I'd Rather Overdose</span></div>
+                    <div class="stage-bar" id="stage-b">
+                        <div class="dancers" aria-hidden="true"><span class="dancer">💃</span><span class="dancer">🕺</span><span class="dancer">💃</span></div>
+                        <div class="eq" aria-hidden="true"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>
+                    </div>
                 </div>
                 <div class="playlist">
                     <div class="playlist-label">Track List</div>
-                    <ol>
-                        <li><a href="https://www.youtube.com/watch?v=cq43FrpXGQs" target="_blank" rel="noopener noreferrer"><span class="track-num">01</span> I'd Rather Overdose</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=vxh7f3p49HQ" target="_blank" rel="noopener noreferrer"><span class="track-num">02</span> Cool Kids</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=SWkvpy29pRY" target="_blank" rel="noopener noreferrer"><span class="track-num">03</span> Growin' Pains</a></li>
+                    <ol id="playlist-b">
+                        <li><button type="button" class="track-btn active" data-id="cq43FrpXGQs" data-fact="honestav's breakout hit — &lt;strong&gt;88M+ streams&lt;/strong&gt; and climbed Billboard's Alternative Radio Chart."><span class="track-num">01</span><span class="track-title">I'd Rather Overdose</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=cq43FrpXGQs" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open I'd Rather Overdose on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="vxh7f3p49HQ" data-fact="Released August 2024 — an early fan favorite."><span class="track-num">02</span><span class="track-title">Cool Kids</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=vxh7f3p49HQ" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Cool Kids on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="SWkvpy29pRY" data-fact="5.7M+ views on the official video."><span class="track-num">03</span><span class="track-title">Growin' Pains</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=SWkvpy29pRY" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Growin' Pains on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="LmnHhznAs8o" data-fact="One of his 2026 singles, off the new era of music."><span class="track-num">04</span><span class="track-title">Know Better</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=LmnHhznAs8o" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Know Better on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="SCyN9ftUMvE" data-fact="6.5M+ views — a fan favorite since 2024."><span class="track-num">05</span><span class="track-title">Stuck On The Floor</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=SCyN9ftUMvE" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Stuck On The Floor on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="xiJcGdawnPw" data-fact="He tells his real origin story in this one."><span class="track-num">06</span><span class="track-title">How I Got My Name</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=xiJcGdawnPw" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open How I Got My Name on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="DSqXsZomNM8" data-fact="Off his 2026 album &lt;strong&gt;Sweet American Boy&lt;/strong&gt;."><span class="track-num">07</span><span class="track-title">26</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=DSqXsZomNM8" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open 26 on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="TABcblk9w8M" data-fact="A collab with &lt;strong&gt;mgk&lt;/strong&gt; — filmed while opening for him on tour in Australia &amp; New Zealand."><span class="track-num">08</span><span class="track-title">Crash First (ft. mgk)</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=TABcblk9w8M" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Crash First on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="e0oQQaQ-Kk0" data-fact="A 2026 collaboration with &lt;strong&gt;JaYy Wick&lt;/strong&gt;."><span class="track-num">09</span><span class="track-title">FKN Hate You (ft. JaYy Wick)</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=e0oQQaQ-Kk0" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open FKN Hate You on YouTube">↗</a></li>
+                        <li><button type="button" class="track-btn" data-id="6txtMSk_H9I" data-fact="Another cut from the &lt;strong&gt;Sweet American Boy&lt;/strong&gt; era."><span class="track-num">10</span><span class="track-title">Heathen</span></button><a class="track-ext" href="https://www.youtube.com/watch?v=6txtMSk_H9I" target="_blank" rel="noopener noreferrer" title="Open on YouTube" aria-label="Open Heathen on YouTube">↗</a></li>
                     </ol>
-                    <div class="fact-strip">"I'd Rather Overdose" is honestav's breakout hit — 88M+ streams and climbed Billboard's Alternative Radio Chart.</div>
+                    <div class="fact-strip" id="fact-b">"I'd Rather Overdose" is honestav's breakout hit — 88M+ streams and climbed Billboard's Alternative Radio Chart.</div>
                 </div>
             </div>
         </div>
@@ -467,6 +562,76 @@
                 loadGuestbook();
             });
             loadGuestbook();
+
+            // ---- mixtape player: click a track, the video on the left swaps in place;
+            // little dancers + an equalizer wake up in sync with real play/pause state ----
+            (function () {
+                const sides = [
+                    { id: 'a', playerId: 'player-a', listId: 'playlist-a', factId: 'fact-a', titleId: 'now-title-a', stageId: 'stage-a' },
+                    { id: 'b', playerId: 'player-b', listId: 'playlist-b', factId: 'fact-b', titleId: 'now-title-b', stageId: 'stage-b' },
+                ];
+                const players = {};
+                const eqTimers = {};
+
+                function setNowPlaying(side, btn) {
+                    document.getElementById(side.listId).querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.querySelector('#' + side.titleId + ' .now-title-text').textContent = btn.querySelector('.track-title').textContent;
+                    document.getElementById(side.factId).innerHTML = btn.dataset.fact || '';
+                    const frame = document.getElementById(side.playerId).closest('.video-frame');
+                    frame.classList.add('pulse');
+                    setTimeout(() => frame.classList.remove('pulse'), 450);
+                }
+
+                function setPlayingState(side, isPlaying) {
+                    document.getElementById(side.titleId).classList.toggle('paused', !isPlaying);
+                    const stage = document.getElementById(side.stageId);
+                    stage.classList.toggle('playing', isPlaying);
+                    if (isPlaying) {
+                        if (!eqTimers[side.id]) {
+                            const bars = stage.querySelectorAll('.eq-bar');
+                            eqTimers[side.id] = setInterval(() => {
+                                bars.forEach(bar => { bar.style.height = (18 + Math.random() * 82) + '%'; });
+                            }, 260);
+                        }
+                    } else if (eqTimers[side.id]) {
+                        clearInterval(eqTimers[side.id]);
+                        eqTimers[side.id] = null;
+                        stage.querySelectorAll('.eq-bar').forEach(bar => { bar.style.height = '15%'; });
+                    }
+                }
+
+                sides.forEach(side => {
+                    document.getElementById(side.listId).addEventListener('click', (e) => {
+                        const btn = e.target.closest('.track-btn');
+                        if (!btn) return;
+                        const id = btn.dataset.id;
+                        const player = players[side.id];
+                        if (player && typeof player.loadVideoById === 'function') {
+                            player.loadVideoById(id);
+                        } else {
+                            // API not ready yet (slow connection, blocked script, etc) — fall back to a plain src swap
+                            document.getElementById(side.playerId).src =
+                                'https://www.youtube.com/embed/' + id + '?enablejsapi=1&playsinline=1&rel=0&autoplay=1';
+                        }
+                        setNowPlaying(side, btn);
+                    });
+                });
+
+                window.onYouTubeIframeAPIReady = function () {
+                    sides.forEach(side => {
+                        players[side.id] = new YT.Player(side.playerId, {
+                            events: {
+                                onStateChange: (e) => setPlayingState(side, e.data === YT.PlayerState.PLAYING)
+                            }
+                        });
+                    });
+                };
+
+                const tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                document.head.appendChild(tag);
+            })();
         })();
     </script>
 
