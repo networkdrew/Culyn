@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Culyn's corner of the internet.">
-    <title>culyn.drewcassidy.dev — Culyn's Corner</title>
+    <meta name="description" content="Culyn's treehouse — her own corner of the internet.">
+    <title>culyn.drewcassidy.dev — Culyn's Treehouse</title>
 
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%8B%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B4%3C/text%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,332 +14,427 @@
 
     <style>
         :root {
-            --pink: #ff6ec7;
-            --pink-soft: #ffb3e0;
-            --purple: #b388ff;
-            --sky: #7dd3fc;
+            --pink: #ff3fa4;
+            --pink-hot: #ff6ec7;
+            --pink-soft: #ffc7e8;
+            --jungle: #0f6e4f;
+            --jungle-dark: #0a4a35;
+            --jungle-light: #3fae7c;
+            --dusk: #4b2e83;
             --stitch-blue: #1e40af;
             --stitch-blue-mid: #3b82f6;
             --sun: #ffe066;
-            --ink: #2d1b4e;
-            --paper: #fff9fc;
-            --card-border: #ffffff;
+            --ink: #23233b;
+            --paper: #fffaf5;
+            --wood: #a9713f;
+            --wood-dark: #7a4d29;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Fredoka', sans-serif;
             color: var(--ink);
             min-height: 100vh;
-            background: linear-gradient(160deg, #fdf0ff 0%, #e0f2ff 45%, #dff7ff 100%);
+            background: linear-gradient(180deg, #2d1b54 0%, #4b2e83 18%, #7a3d8a 32%, #d9548f 52%, #ff8a5c 68%, #ffd36e 100%);
             background-attachment: fixed;
             overflow-x: hidden;
             position: relative;
-            cursor: default;
         }
 
-        /* floating sparkle field */
-        .sparkle-field {
+        /* jungle silhouette footer band, purely decorative */
+        .jungle-band {
             position: fixed;
-            inset: 0;
+            left: 0; right: 0; bottom: 0;
+            height: 90px;
+            z-index: 1;
             pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+            background:
+                radial-gradient(circle at 8% 100%, var(--jungle) 0 40px, transparent 41px),
+                radial-gradient(circle at 20% 100%, var(--jungle-dark) 0 55px, transparent 56px),
+                radial-gradient(circle at 34% 100%, var(--jungle) 0 45px, transparent 46px),
+                radial-gradient(circle at 50% 100%, var(--jungle-dark) 0 60px, transparent 61px),
+                radial-gradient(circle at 65% 100%, var(--jungle) 0 42px, transparent 43px),
+                radial-gradient(circle at 80% 100%, var(--jungle-dark) 0 52px, transparent 53px),
+                radial-gradient(circle at 94% 100%, var(--jungle) 0 40px, transparent 41px),
+                linear-gradient(0deg, var(--jungle-dark), transparent);
+            opacity: 0.9;
         }
-        .sparkle {
-            position: absolute;
-            font-size: 1.4rem;
-            opacity: 0.55;
-            animation: float 9s ease-in-out infinite;
-            user-select: none;
+
+        /* fairy lights + floating sparkles */
+        .sparkle-field { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .sparkle { position: absolute; font-size: 1.3rem; opacity: 0.6; animation: float 9s ease-in-out infinite; user-select: none; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-26px) rotate(12deg); } }
+
+        .fairy-lights {
+            position: relative;
+            z-index: 5;
+            height: 30px;
+            background-image: radial-gradient(circle, var(--sun) 3px, transparent 4px);
+            background-size: 42px 30px;
+            background-position: 10px 6px;
+            animation: twinkle 2.4s ease-in-out infinite alternate;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-26px) rotate(12deg); }
-        }
+        @keyframes twinkle { from { opacity: 0.5; filter: drop-shadow(0 0 2px var(--sun)); } to { opacity: 1; filter: drop-shadow(0 0 8px var(--sun)); } }
 
         /* marquee banner */
         .marquee-wrap {
             position: relative;
             z-index: 5;
-            background: linear-gradient(90deg, var(--pink), var(--purple), var(--sky), var(--pink));
+            background: linear-gradient(90deg, var(--pink), var(--dusk), var(--jungle-light), var(--pink));
             background-size: 300% 100%;
             animation: gradient-scroll 8s linear infinite;
             color: #fff;
             padding: 8px 0;
             font-family: 'Baloo 2', sans-serif;
             font-weight: 700;
-            font-size: 0.95rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
             overflow: hidden;
             white-space: nowrap;
         }
         @keyframes gradient-scroll { to { background-position: 300% 0; } }
-        .marquee-track {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 22s linear infinite;
-        }
+        .marquee-track { display: inline-block; padding-left: 100%; animation: marquee 24s linear infinite; }
         @keyframes marquee { to { transform: translateX(-100%); } }
 
         .main-wrapper {
             position: relative;
             z-index: 10;
-            max-width: 880px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 36px 20px 60px;
+            padding: 30px 20px 120px;
         }
 
-        /* profile header */
-        .profile-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 22px;
-            background: var(--paper);
-            border: 4px solid var(--card-border);
-            outline: 3px dashed var(--pink-soft);
-            outline-offset: -10px;
-            border-radius: 24px;
-            padding: 28px 26px;
-            box-shadow: 0 14px 40px rgba(179, 136, 255, 0.25);
-            margin-bottom: 22px;
+        /* wood sign header */
+        .sign {
+            text-align: center;
+            margin-bottom: 26px;
+            cursor: pointer;
+            user-select: none;
         }
-        .avatar {
-            flex-shrink: 0;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, var(--stitch-blue-mid), var(--stitch-blue) 70%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.2rem;
-            border: 5px solid #fff;
-            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.35);
-        }
-        .profile-info h1 {
+        .sign .rope { font-size: 1.1rem; opacity: 0.7; }
+        .sign h1 {
+            display: inline-block;
             font-family: 'Baloo 2', sans-serif;
-            font-size: clamp(1.8rem, 5vw, 2.6rem);
-            background: linear-gradient(90deg, var(--pink), var(--purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            color: #fff5e6;
+            background: linear-gradient(160deg, var(--wood), var(--wood-dark));
+            border: 4px solid #5c3a1e;
+            border-radius: 14px;
+            padding: 14px 30px;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.25), 0 14px 26px rgba(0,0,0,0.35);
+            transform: rotate(-1.2deg);
+            transition: transform 0.2s ease;
         }
-        .profile-info .handle {
-            font-size: 0.85rem;
-            color: #7c6f9c;
-            margin-top: 2px;
-        }
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        .sign:hover h1 { transform: rotate(-1.2deg) scale(1.03); }
+        .sign .tagline {
             margin-top: 10px;
-            background: #fff0fa;
-            border: 2px solid var(--pink-soft);
-            border-radius: 30px;
-            padding: 5px 14px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #a3488f;
+            font-size: 0.9rem;
+            color: #fff5e6;
+            opacity: 0.85;
         }
 
-        /* about me / interests box */
         .card {
             background: var(--paper);
             border: 3px solid #fff;
             border-radius: 20px;
             padding: 22px 24px;
-            box-shadow: 0 10px 28px rgba(125, 211, 252, 0.25);
+            box-shadow: 0 12px 30px rgba(20, 10, 40, 0.28);
             margin-bottom: 22px;
         }
         .card h2 {
             font-family: 'Baloo 2', sans-serif;
-            font-size: 1.2rem;
-            color: var(--purple);
+            font-size: 1.15rem;
+            color: var(--dusk);
             margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .interest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-        }
-        .interest-item {
+
+        /* now playing music widget */
+        .now-playing {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #fff, #fdf3ff);
-            border: 2px solid #ffe0f5;
-            border-radius: 14px;
-            padding: 12px 14px;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: flex-start;
         }
-        .interest-emoji { font-size: 1.6rem; }
-        .interest-text .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #b48fcf; font-weight: 600; }
-        .interest-text .value { font-weight: 600; font-size: 0.95rem; }
+        .video-frame {
+            flex: 1 1 260px;
+            max-width: 340px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 4px solid var(--pink-hot);
+            box-shadow: 0 8px 20px rgba(255, 62, 164, 0.35);
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+        .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .playlist { flex: 1 1 260px; min-width: 220px; }
+        .playlist-label {
+            font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+            color: #a3488f; font-weight: 700; margin-bottom: 8px;
+        }
+        .playlist ol { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .playlist li a {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--ink);
+            background: linear-gradient(135deg, #fff, #fff0f8);
+            border: 2px solid #ffe0f0;
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .playlist li a:hover { transform: translateX(4px); background: #ffe6f5; }
+        .playlist li .track-num { color: #d84ea3; font-family: 'Baloo 2', sans-serif; width: 1.2em; }
+        .fact-strip {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: #7c6f9c;
+            border-top: 2px dashed #ffd6ec;
+            padding-top: 10px;
+        }
+
+        /* sticky notes about me */
+        .notes-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px;
+        }
+        .sticky {
+            background: #fff9c4;
+            padding: 16px 16px 20px;
+            border-radius: 4px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+            font-size: 0.9rem;
+            position: relative;
+            transform: rotate(var(--tilt, -2deg));
+        }
+        .sticky:nth-child(1) { --tilt: -3deg; background: #fff9c4; }
+        .sticky:nth-child(2) { --tilt: 2deg; background: #d7f5e3; }
+        .sticky:nth-child(3) { --tilt: -1.5deg; background: #ffe0ef; }
+        .sticky:nth-child(4) { --tilt: 2.5deg; background: #dbe9ff; }
+        .sticky::before {
+            content: '📌';
+            position: absolute;
+            top: -12px; left: 50%; transform: translateX(-50%);
+            font-size: 1.2rem;
+        }
+        .sticky .label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.6; font-weight: 700; margin-bottom: 4px; }
+        .sticky .value { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 1.02rem; }
+        .sticky .sub { margin-top: 4px; font-size: 0.78rem; opacity: 0.75; }
+
+        /* guestbook */
+        .guestbook-form { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+        .guestbook-form input {
+            flex: 1 1 200px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.9rem;
+            padding: 10px 14px;
+            border-radius: 30px;
+            border: 2px solid #ffd6ec;
+            outline: none;
+        }
+        .guestbook-form input:focus { border-color: var(--pink-hot); }
+        .guestbook-form button {
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 700;
+            background: var(--pink-hot);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .guestbook-form button:hover { transform: scale(1.05); }
+        .guestbook-list { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; }
+        .guestbook-entry {
+            background: linear-gradient(135deg, #fff, #f3f0ff);
+            border: 2px solid #e5ddff;
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+        .guestbook-entry .who { font-weight: 700; color: var(--dusk); }
+        .guestbook-empty { font-size: 0.85rem; color: #a89bc9; font-style: italic; }
 
         /* hub grid */
         .section-title {
             font-family: 'Baloo 2', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: #fff;
-            background: linear-gradient(90deg, var(--stitch-blue-mid), var(--purple));
+            background: linear-gradient(90deg, var(--stitch-blue-mid), var(--pink));
             display: inline-block;
             padding: 8px 20px;
             border-radius: 30px;
             margin-bottom: 18px;
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
         }
-        .hub-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-            margin-bottom: 26px;
-        }
+        .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 8px; }
         .hub-card {
             position: relative;
             background: var(--paper);
             border: 3px solid #fff;
             border-radius: 20px;
-            padding: 22px 20px;
+            padding: 20px 18px;
             text-decoration: none;
             color: var(--ink);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            min-height: 140px;
-            box-shadow: 0 10px 24px rgba(255, 110, 199, 0.2);
+            gap: 8px;
+            min-height: 130px;
+            box-shadow: 0 10px 24px rgba(255, 62, 164, 0.2);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .hub-card:hover {
-            transform: translateY(-5px) rotate(-1deg);
-            box-shadow: 0 16px 34px rgba(255, 110, 199, 0.35);
-        }
-        .hub-emoji { font-size: 2.1rem; }
-        .hub-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 1.05rem; }
-        .hub-desc { font-size: 0.85rem; color: #7c6f9c; flex: 1; }
+        .hub-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 0 16px 34px rgba(255, 62, 164, 0.35); }
+        .hub-emoji { font-size: 2rem; }
+        .hub-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 1.02rem; }
+        .hub-desc { font-size: 0.82rem; color: #7c6f9c; flex: 1; }
         .hub-badge {
-            align-self: flex-start;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            padding: 3px 10px;
-            border-radius: 20px;
-            background: #e6fff2;
-            color: #2f9e6b;
-            border: 1px solid #b6f0d2;
+            align-self: flex-start; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em;
+            text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+            background: #e6fff2; color: #2f9e6b; border: 1px solid #b6f0d2;
         }
-        .hub-card.coming-soon {
-            opacity: 0.75;
-            border-style: dashed;
-            cursor: default;
-        }
+        .hub-card.coming-soon { opacity: 0.75; border-style: dashed; cursor: default; }
         .hub-card.coming-soon:hover { transform: none; }
-        .hub-card.coming-soon .hub-badge {
-            background: #fff7e0;
-            color: #b8860b;
-            border-color: #ffe6a3;
+        .hub-card.coming-soon .hub-badge { background: #fff7e0; color: #b8860b; border-color: #ffe6a3; }
+
+        /* hidden knot easter egg */
+        .knot {
+            position: fixed;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #4a2f1a, #2f1c10);
+            right: 18px;
+            bottom: 100px;
+            z-index: 6;
+            cursor: pointer;
+            box-shadow: 0 0 0 rgba(255,224,102,0);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .knot:hover { box-shadow: 0 0 16px rgba(255,224,102,0.8); transform: scale(1.15); }
+
+        /* secret modal */
+        .secret-overlay {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(20, 10, 40, 0.75);
+            display: none;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .secret-overlay.open { display: flex; }
+        .secret-panel {
+            background: linear-gradient(160deg, #fffaf5, #ffe9f5);
+            border-radius: 24px;
+            border: 4px solid var(--pink-hot);
+            padding: 30px 26px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .secret-panel h3 { font-family: 'Baloo 2', sans-serif; color: var(--dusk); margin-bottom: 10px; font-size: 1.3rem; }
+        .secret-panel p { font-size: 0.95rem; margin-bottom: 14px; line-height: 1.5; }
+        .secret-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #fff9c4; border: 2px solid #ffe066; border-radius: 30px;
+            padding: 6px 16px; font-weight: 700; font-size: 0.85rem; margin-bottom: 16px;
+        }
+        .secret-close {
+            font-family: 'Baloo 2', sans-serif; font-weight: 700;
+            background: var(--dusk); color: #fff; border: none; border-radius: 30px;
+            padding: 8px 22px; cursor: pointer;
         }
 
-        /* fun retro counter */
         .counter-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
             font-family: 'Baloo 2', sans-serif;
-            background: var(--ink);
-            color: var(--sun);
-            border-radius: 14px;
-            padding: 10px 18px;
-            width: fit-content;
-            margin: 0 auto 26px;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
+            background: var(--ink); color: var(--sun);
+            border-radius: 14px; padding: 10px 18px; width: fit-content;
+            margin: 0 auto 26px; font-size: 0.82rem; letter-spacing: 0.05em;
             box-shadow: 0 6px 16px rgba(45, 27, 78, 0.3);
         }
-        .counter-box .digits {
-            background: #000;
-            color: #ffe066;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-variant-numeric: tabular-nums;
-        }
+        .counter-box .digits { background: #000; color: #ffe066; padding: 2px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
 
-        .footer {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #9d8fc0;
-            margin-top: 10px;
-        }
-        .footer .heart { color: var(--pink); }
+        .footer { text-align: center; font-size: 0.8rem; color: #fff5e6; margin-top: 20px; position: relative; z-index: 10; opacity: 0.9; }
+        .footer .heart { color: var(--pink-hot); }
 
         @media (max-width: 560px) {
-            .profile-header { flex-direction: column; text-align: center; }
+            .now-playing { flex-direction: column; }
+            .video-frame { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="sparkle-field" id="sparkle-field"></div>
+    <div class="jungle-band"></div>
 
+    <div class="fairy-lights"></div>
     <div class="marquee-wrap">
-        <span class="marquee-track">🌸 welcome to culyn's page!! 🌸 &nbsp; now playing: KATSEYE 🎧 &nbsp; stitch says ohana means family 💙 &nbsp; thanks for stopping by ✨ &nbsp; 🌸 welcome to culyn's page!! 🌸 &nbsp; now playing: KATSEYE 🎧 &nbsp; stitch says ohana means family 💙 &nbsp; thanks for stopping by ✨</span>
+        <span class="marquee-track">🌴 welcome to culyn's treehouse 🌴 &nbsp; now playing: KATSEYE — Pinky Up 🩷 &nbsp; stitch says ohana means family 💙 &nbsp; psst... there's a secret around here somewhere 👀 &nbsp; 🌴 welcome to culyn's treehouse 🌴 &nbsp; now playing: KATSEYE — Pinky Up 🩷 &nbsp; stitch says ohana means family 💙 &nbsp; psst... there's a secret around here somewhere 👀</span>
     </div>
 
     <div class="main-wrapper">
 
-        <div class="profile-header">
-            <div class="avatar">🦋</div>
-            <div class="profile-info">
-                <h1>Culyn's Corner</h1>
-                <div class="handle">culyn.drewcassidy.dev</div>
-                <div class="status-pill">✨ mood: obsessed with KATSEYE rn ✨</div>
+        <div class="sign" id="sign">
+            <div class="rope">🪢 🪢 🪢</div>
+            <h1>🌴 Culyn's Treehouse 🌴</h1>
+            <div class="tagline">culyn.drewcassidy.dev · climb up and look around!</div>
+        </div>
+
+        <div class="card">
+            <h2>🎧 Now Playing</h2>
+            <div class="now-playing">
+                <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/7F1ET2XHQfk" title="KATSEYE - PINKY UP (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="playlist">
+                    <div class="playlist-label">Culyn's Playlist — KATSEYE</div>
+                    <ol>
+                        <li><a href="https://www.youtube.com/watch?v=7F1ET2XHQfk" target="_blank" rel="noopener noreferrer"><span class="track-num">1</span> Pinky Up</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=-bC4iak3kxg" target="_blank" rel="noopener noreferrer"><span class="track-num">2</span> Gameboy</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=R2-yomhYAj4" target="_blank" rel="noopener noreferrer"><span class="track-num">3</span> Gnarly</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=l9CZykYZkOQ" target="_blank" rel="noopener noreferrer"><span class="track-num">4</span> Touch</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=5q9EjSUovc4" target="_blank" rel="noopener noreferrer"><span class="track-num">5</span> Internet Girl</a></li>
+                    </ol>
+                    <div class="fact-strip">📀 "Pinky Up" is the lead single off KATSEYE's 2026 EP <strong>Wild</strong> — they're out on the <strong>Wildworld Tour</strong> right now!</div>
+                </div>
             </div>
         </div>
 
         <div class="card">
-            <h2>💌 About Me</h2>
-            <div class="interest-grid">
-                <div class="interest-item">
-                    <span class="interest-emoji">🎤</span>
-                    <div class="interest-text">
-                        <div class="label">Favorite Group</div>
-                        <div class="value">KATSEYE</div>
-                    </div>
+            <h2>📌 About Me</h2>
+            <div class="notes-board">
+                <div class="sticky">
+                    <div class="label">Obsessed With</div>
+                    <div class="value">🎤 KATSEYE</div>
+                    <div class="sub">6 members, global girl group, EP "Wild" out now</div>
                 </div>
-                <div class="interest-item">
-                    <span class="interest-emoji">🐧</span>
-                    <div class="interest-text">
-                        <div class="label">Favorite Movie</div>
-                        <div class="value">Lilo &amp; Stitch</div>
-                    </div>
+                <div class="sticky">
+                    <div class="label">Favorite Movie</div>
+                    <div class="value">🐬 Lilo &amp; Stitch</div>
+                    <div class="sub">Ohana means family. Family means nobody gets left behind.</div>
                 </div>
-                <div class="interest-item">
-                    <span class="interest-emoji">🎬</span>
-                    <div class="interest-text">
-                        <div class="label">Favorite Creator</div>
-                        <div class="value">HonestAV</div>
-                    </div>
+                <div class="sticky">
+                    <div class="label">Favorite Creator</div>
+                    <div class="value">😂 HonestAV</div>
+                    <div class="sub">makes me laugh so hard</div>
                 </div>
-                <div class="interest-item">
-                    <span class="interest-emoji">💙</span>
-                    <div class="interest-text">
-                        <div class="label">Favorite Color</div>
-                        <div class="value">Stitch Blue</div>
-                    </div>
+                <div class="sticky">
+                    <div class="label">Favorite Color</div>
+                    <div class="value">💙 Stitch Blue</div>
+                    <div class="sub">obviously</div>
                 </div>
             </div>
         </div>
 
-        <div class="counter-box">
-            👀 <span>you are visitor #</span> <span class="digits" id="visitor-count">000001</span>
-        </div>
+        <div class="counter-box">👀 <span>you are visitor #</span> <span class="digits" id="visitor-count">000001</span></div>
 
         <span class="section-title">✨ My Stuff ✨</span>
         <div class="hub-grid">
@@ -349,17 +444,39 @@
                 <div class="hub-desc">A Stitch-themed reading timer with 'Ohana treasures to collect.</div>
                 <span class="hub-badge">Live</span>
             </a>
-
             <div class="hub-card coming-soon">
                 <span class="hub-emoji">🎀</span>
                 <div class="hub-title">More Soon</div>
-                <div class="hub-desc">Dad's adding more games, apps, and tools to your corner over time.</div>
+                <div class="hub-desc">Dad's adding more games, apps, and tools to your treehouse over time.</div>
                 <span class="hub-badge">Coming Soon</span>
             </div>
         </div>
 
+        <div class="card" style="margin-top: 22px;">
+            <h2>💬 Guestbook</h2>
+            <form class="guestbook-form" id="guestbook-form">
+                <input type="text" id="guest-name" placeholder="Your name" maxlength="24" required>
+                <input type="text" id="guest-message" placeholder="Leave a nice note!" maxlength="120" required>
+                <button type="submit">Sign it! ✍️</button>
+            </form>
+            <div class="guestbook-list" id="guestbook-list"></div>
+        </div>
+
         <div class="footer">
-            made with <span class="heart">💙</span> by Dad &nbsp;·&nbsp; always adding more
+            built with <span class="heart">💙</span> by Dad, for Culyn &nbsp;·&nbsp; always adding more &nbsp;·&nbsp; forever a work in progress
+        </div>
+    </div>
+
+    <!-- hidden knot in the treehouse -->
+    <div class="knot" id="knot" title=""></div>
+
+    <div class="secret-overlay" id="secret-overlay">
+        <div class="secret-panel">
+            <h3>🌟 You found the secret knot!</h3>
+            <p>Not everyone climbs high enough to notice it. Dad built this whole treehouse just for you — and he's going to keep adding rooms to it for as long as this place exists.</p>
+            <div class="secret-badge">🏆 Badge unlocked: Treehouse Explorer</div>
+            <br>
+            <button class="secret-close" id="secret-close">Back to the treehouse</button>
         </div>
     </div>
 
@@ -367,20 +484,20 @@
         (function () {
             // sparkle field
             const field = document.getElementById('sparkle-field');
-            const emojis = ['✨', '💙', '💗', '⭐', '🎀'];
+            const emojis = ['✨', '💙', '💗', '⭐', '🌺', '🦋'];
             const count = window.innerWidth < 640 ? 12 : 22;
             for (let i = 0; i < count; i++) {
                 const s = document.createElement('span');
                 s.className = 'sparkle';
                 s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
                 s.style.left = Math.random() * 100 + '%';
-                s.style.top = Math.random() * 100 + '%';
+                s.style.top = Math.random() * 90 + '%';
                 s.style.animationDelay = (Math.random() * 6) + 's';
                 s.style.animationDuration = (7 + Math.random() * 5) + 's';
                 field.appendChild(s);
             }
 
-            // fake but persistent-feeling visitor counter (per-browser only, MySpace-style gag)
+            // visitor counter (per-browser only, nostalgic gag)
             try {
                 const key = 'culyn_visitor_count';
                 let n = parseInt(localStorage.getItem(key) || '0', 10);
@@ -390,6 +507,82 @@
             } catch (e) {
                 document.getElementById('visitor-count').textContent = '000001';
             }
+
+            // hidden knot -> secret panel + confetti
+            const overlay = document.getElementById('secret-overlay');
+            document.getElementById('knot').addEventListener('click', () => {
+                overlay.classList.add('open');
+                burstConfetti();
+            });
+            document.getElementById('secret-close').addEventListener('click', () => {
+                overlay.classList.remove('open');
+            });
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.classList.remove('open');
+            });
+
+            function burstConfetti() {
+                const bits = ['🎉', '✨', '🌺', '💙', '🎀', '⭐'];
+                for (let i = 0; i < 24; i++) {
+                    const b = document.createElement('div');
+                    b.textContent = bits[Math.floor(Math.random() * bits.length)];
+                    b.style.position = 'fixed';
+                    b.style.left = (40 + Math.random() * 20) + 'vw';
+                    b.style.top = '40vh';
+                    b.style.fontSize = (1 + Math.random()) + 'rem';
+                    b.style.zIndex = 200;
+                    b.style.pointerEvents = 'none';
+                    b.style.transition = 'transform 1.2s ease-out, opacity 1.2s ease-out';
+                    document.body.appendChild(b);
+                    requestAnimationFrame(() => {
+                        const dx = (Math.random() - 0.5) * 400;
+                        const dy = 200 + Math.random() * 300;
+                        b.style.transform = `translate(${dx}px, ${dy}px) rotate(${Math.random() * 360}deg)`;
+                        b.style.opacity = '0';
+                    });
+                    setTimeout(() => b.remove(), 1300);
+                }
+            }
+
+            // sign click also sparkles a little, just for fun
+            document.getElementById('sign').addEventListener('click', burstConfetti);
+
+            // guestbook (local only — stored in this browser, nothing sent anywhere)
+            const GB_KEY = 'culyn_guestbook';
+            const list = document.getElementById('guestbook-list');
+            function loadGuestbook() {
+                let entries = [];
+                try { entries = JSON.parse(localStorage.getItem(GB_KEY) || '[]'); } catch (e) { entries = []; }
+                list.innerHTML = '';
+                if (entries.length === 0) {
+                    list.innerHTML = '<div class="guestbook-empty">No notes yet — be the first to sign!</div>';
+                    return;
+                }
+                entries.slice().reverse().forEach(entry => {
+                    const div = document.createElement('div');
+                    div.className = 'guestbook-entry';
+                    const who = document.createElement('span');
+                    who.className = 'who';
+                    who.textContent = entry.name + ': ';
+                    div.appendChild(who);
+                    div.appendChild(document.createTextNode(entry.message));
+                    list.appendChild(div);
+                });
+            }
+            document.getElementById('guestbook-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('guest-name').value.trim();
+                const message = document.getElementById('guest-message').value.trim();
+                if (!name || !message) return;
+                let entries = [];
+                try { entries = JSON.parse(localStorage.getItem(GB_KEY) || '[]'); } catch (err) { entries = []; }
+                entries.push({ name, message });
+                localStorage.setItem(GB_KEY, JSON.stringify(entries));
+                document.getElementById('guest-name').value = '';
+                document.getElementById('guest-message').value = '';
+                loadGuestbook();
+            });
+            loadGuestbook();
         })();
     </script>
 
