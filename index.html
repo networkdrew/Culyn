@@ -3,94 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Culyn's treehouse — her own corner of the internet.">
-    <title>culyn.drewcassidy.dev — Culyn's Treehouse</title>
+    <meta name="description" content="Culyn's mixtape — her own corner of the internet.">
+    <title>culyn.drewcassidy.dev — Culyn's Mixtape</title>
 
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B4%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%A7%3C/text%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --pink: #ff3fa4;
             --pink-hot: #ff6ec7;
-            --pink-soft: #ffc7e8;
-            --jungle: #0f6e4f;
-            --jungle-dark: #0a4a35;
-            --jungle-light: #3fae7c;
             --dusk: #4b2e83;
-            --stitch-blue: #1e40af;
-            --stitch-blue-mid: #3b82f6;
-            --sun: #ffe066;
-            --ink: #23233b;
+            --amber: #c8712f;
+            --amber-dark: #7a4419;
+            --cream: #fff3e2;
+            --stitch-blue: #3b82f6;
+            --ink: #201a2e;
             --paper: #fffaf5;
-            --wood: #a9713f;
-            --wood-dark: #7a4d29;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Fredoka', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             color: var(--ink);
             min-height: 100vh;
-            background: linear-gradient(180deg, #2d1b54 0%, #4b2e83 18%, #7a3d8a 32%, #d9548f 52%, #ff8a5c 68%, #ffd36e 100%);
+            background: linear-gradient(180deg, #2d1b54 0%, #7a3d8a 26%, #d9548f 44%, #d97a4f 62%, #c8712f 82%, #8a4b2a 100%);
             background-attachment: fixed;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* jungle silhouette footer band, purely decorative */
-        .jungle-band {
+        /* grain texture overlay, purely decorative */
+        body::before {
+            content: '';
             position: fixed;
-            left: 0; right: 0; bottom: 0;
-            height: 90px;
-            z-index: 1;
+            inset: 0;
+            z-index: 2;
             pointer-events: none;
-            background:
-                radial-gradient(circle at 8% 100%, var(--jungle) 0 40px, transparent 41px),
-                radial-gradient(circle at 20% 100%, var(--jungle-dark) 0 55px, transparent 56px),
-                radial-gradient(circle at 34% 100%, var(--jungle) 0 45px, transparent 46px),
-                radial-gradient(circle at 50% 100%, var(--jungle-dark) 0 60px, transparent 61px),
-                radial-gradient(circle at 65% 100%, var(--jungle) 0 42px, transparent 43px),
-                radial-gradient(circle at 80% 100%, var(--jungle-dark) 0 52px, transparent 53px),
-                radial-gradient(circle at 94% 100%, var(--jungle) 0 40px, transparent 41px),
-                linear-gradient(0deg, var(--jungle-dark), transparent);
-            opacity: 0.9;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* fairy lights + floating sparkles */
         .sparkle-field { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-        .sparkle { position: absolute; font-size: 1.3rem; opacity: 0.6; animation: float 9s ease-in-out infinite; user-select: none; }
-        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-26px) rotate(12deg); } }
+        .sparkle { position: absolute; font-size: 1.2rem; opacity: 0.55; animation: float 9s ease-in-out infinite; user-select: none; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-24px) rotate(10deg); } }
 
-        .fairy-lights {
-            position: relative;
-            z-index: 5;
-            height: 30px;
-            background-image: radial-gradient(circle, var(--sun) 3px, transparent 4px);
-            background-size: 42px 30px;
-            background-position: 10px 6px;
-            animation: twinkle 2.4s ease-in-out infinite alternate;
-        }
-        @keyframes twinkle { from { opacity: 0.5; filter: drop-shadow(0 0 2px var(--sun)); } to { opacity: 1; filter: drop-shadow(0 0 8px var(--sun)); } }
-
-        /* marquee banner */
         .marquee-wrap {
             position: relative;
             z-index: 5;
-            background: linear-gradient(90deg, var(--pink), var(--dusk), var(--jungle-light), var(--pink));
+            background: linear-gradient(90deg, var(--pink), var(--dusk), var(--amber), var(--pink));
             background-size: 300% 100%;
             animation: gradient-scroll 8s linear infinite;
             color: #fff;
             padding: 8px 0;
-            font-family: 'Baloo 2', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
             overflow: hidden;
             white-space: nowrap;
@@ -99,188 +73,90 @@
         .marquee-track { display: inline-block; padding-left: 100%; animation: marquee 24s linear infinite; }
         @keyframes marquee { to { transform: translateX(-100%); } }
 
-        .main-wrapper {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px 20px 120px;
-        }
+        .main-wrapper { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; padding: 40px 20px 100px; }
 
-        /* wood sign header */
-        .sign {
-            text-align: center;
-            margin-bottom: 26px;
-            cursor: pointer;
-            user-select: none;
+        .hero { text-align: center; margin-bottom: 34px; cursor: pointer; user-select: none; }
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.6rem, 9vw, 4.4rem);
+            letter-spacing: 0.04em;
+            color: #fff;
+            text-shadow: 0 0 24px rgba(255, 110, 199, 0.6), 0 4px 0 rgba(0,0,0,0.25);
+            line-height: 1;
         }
-        .sign .rope { font-size: 1.1rem; opacity: 0.7; }
-        .sign h1 {
-            display: inline-block;
-            font-family: 'Baloo 2', sans-serif;
-            font-size: clamp(1.8rem, 6vw, 2.8rem);
-            color: #fff5e6;
-            background: linear-gradient(160deg, var(--wood), var(--wood-dark));
-            border: 4px solid #5c3a1e;
-            border-radius: 14px;
-            padding: 14px 30px;
-            box-shadow: 0 10px 0 rgba(0,0,0,0.25), 0 14px 26px rgba(0,0,0,0.35);
-            transform: rotate(-1.2deg);
-            transition: transform 0.2s ease;
+        .hero .tagline { margin-top: 8px; font-size: 0.85rem; color: #fff0e0; opacity: 0.85; letter-spacing: 0.03em; }
+
+        .side-header {
+            display: flex; align-items: center; gap: 12px;
+            margin: 0 0 14px;
         }
-        .sign:hover h1 { transform: rotate(-1.2deg) scale(1.03); }
-        .sign .tagline {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #fff5e6;
-            opacity: 0.85;
+        .side-header .tag {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 8px;
         }
+        .side-header.a .tag { background: linear-gradient(135deg, var(--pink), var(--pink-hot)); }
+        .side-header.b .tag { background: linear-gradient(135deg, var(--amber), var(--amber-dark)); }
+        .side-header .artist { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; }
+        .side-header .line { flex: 1; height: 2px; background: rgba(255,255,255,0.25); border-radius: 2px; }
 
         .card {
             background: var(--paper);
-            border: 3px solid #fff;
-            border-radius: 20px;
+            border-radius: 18px;
             padding: 22px 24px;
-            box-shadow: 0 12px 30px rgba(20, 10, 40, 0.28);
-            margin-bottom: 22px;
-        }
-        .card h2 {
-            font-family: 'Baloo 2', sans-serif;
-            font-size: 1.15rem;
-            color: var(--dusk);
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            box-shadow: 0 14px 34px rgba(20, 10, 40, 0.32);
+            margin-bottom: 26px;
         }
 
-        /* now playing music widget */
-        .now-playing {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            align-items: flex-start;
-        }
+        .now-playing { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
         .video-frame {
-            flex: 1 1 260px;
-            max-width: 340px;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 4px solid var(--pink-hot);
-            box-shadow: 0 8px 20px rgba(255, 62, 164, 0.35);
-            aspect-ratio: 16/9;
-            background: #000;
+            flex: 1 1 260px; max-width: 340px;
+            border-radius: 12px; overflow: hidden;
+            aspect-ratio: 16/9; background: #000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
+        .side-header.a ~ .card .video-frame { border: 4px solid var(--pink-hot); }
+        .card.side-b .video-frame { border: 4px solid var(--amber); }
         .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-        .playlist { flex: 1 1 260px; min-width: 220px; }
-        .playlist-label {
-            font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
-            color: #a3488f; font-weight: 700; margin-bottom: 8px;
-        }
+
+        .playlist { flex: 1 1 240px; min-width: 200px; }
+        .playlist-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9c8; font-weight: 700; margin-bottom: 8px; }
+        .card:not(.side-b) .playlist-label { color: #b04a92; }
+        .card.side-b .playlist-label { color: #a5652b; }
         .playlist ol { list-style: none; display: flex; flex-direction: column; gap: 6px; }
         .playlist li a {
             display: flex; align-items: center; gap: 10px;
             text-decoration: none; color: var(--ink);
-            background: linear-gradient(135deg, #fff, #fff0f8);
-            border: 2px solid #ffe0f0;
-            border-radius: 12px;
+            background: #f7f2f5;
+            border: 2px solid transparent;
+            border-radius: 10px;
             padding: 8px 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: transform 0.15s ease, background 0.15s ease;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: transform 0.15s ease, border-color 0.15s ease;
         }
-        .playlist li a:hover { transform: translateX(4px); background: #ffe6f5; }
-        .playlist li .track-num { color: #d84ea3; font-family: 'Baloo 2', sans-serif; width: 1.2em; }
-        .fact-strip {
-            margin-top: 14px;
-            font-size: 0.8rem;
-            color: #7c6f9c;
-            border-top: 2px dashed #ffd6ec;
-            padding-top: 10px;
-        }
-
-        /* sticky notes about me */
-        .notes-board {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 18px;
-        }
-        .sticky {
-            background: #fff9c4;
-            padding: 16px 16px 20px;
-            border-radius: 4px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-            font-size: 0.9rem;
-            position: relative;
-            transform: rotate(var(--tilt, -2deg));
-        }
-        .sticky:nth-child(1) { --tilt: -3deg; background: #fff9c4; }
-        .sticky:nth-child(2) { --tilt: 2deg; background: #d7f5e3; }
-        .sticky:nth-child(3) { --tilt: -1.5deg; background: #ffe0ef; }
-        .sticky:nth-child(4) { --tilt: 2.5deg; background: #dbe9ff; }
-        .sticky::before {
-            content: '📌';
-            position: absolute;
-            top: -12px; left: 50%; transform: translateX(-50%);
-            font-size: 1.2rem;
-        }
-        .sticky .label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.6; font-weight: 700; margin-bottom: 4px; }
-        .sticky .value { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 1.02rem; }
-        .sticky .sub { margin-top: 4px; font-size: 0.78rem; opacity: 0.75; }
-
-        /* guestbook */
-        .guestbook-form { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-        .guestbook-form input {
-            flex: 1 1 200px;
-            font-family: 'Fredoka', sans-serif;
-            font-size: 0.9rem;
-            padding: 10px 14px;
-            border-radius: 30px;
-            border: 2px solid #ffd6ec;
-            outline: none;
-        }
-        .guestbook-form input:focus { border-color: var(--pink-hot); }
-        .guestbook-form button {
-            font-family: 'Baloo 2', sans-serif;
-            font-weight: 700;
-            background: var(--pink-hot);
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: transform 0.15s ease;
-        }
-        .guestbook-form button:hover { transform: scale(1.05); }
-        .guestbook-list { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; }
-        .guestbook-entry {
-            background: linear-gradient(135deg, #fff, #f3f0ff);
-            border: 2px solid #e5ddff;
-            border-radius: 12px;
-            padding: 8px 12px;
-            font-size: 0.85rem;
-        }
-        .guestbook-entry .who { font-weight: 700; color: var(--dusk); }
-        .guestbook-empty { font-size: 0.85rem; color: #a89bc9; font-style: italic; }
+        .card:not(.side-b) .playlist li a:hover { border-color: var(--pink-hot); transform: translateX(4px); }
+        .card.side-b .playlist li a:hover { border-color: var(--amber); transform: translateX(4px); }
+        .playlist li .track-num { font-family: 'Bebas Neue', sans-serif; width: 1.4em; opacity: 0.5; }
+        .fact-strip { margin-top: 14px; font-size: 0.78rem; color: #8a7d8f; border-top: 1px dashed #e5dde0; padding-top: 10px; }
 
         /* hub grid */
         .section-title {
-            font-family: 'Baloo 2', sans-serif;
-            font-size: 1.25rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.04em;
             color: #fff;
-            background: linear-gradient(90deg, var(--stitch-blue-mid), var(--pink));
             display: inline-block;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-bottom: 18px;
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+            margin-bottom: 16px;
         }
-        .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 8px; }
+        .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 30px; }
         .hub-card {
             position: relative;
             background: var(--paper);
-            border: 3px solid #fff;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 20px 18px;
             text-decoration: none;
             color: var(--ink);
@@ -288,80 +164,99 @@
             flex-direction: column;
             gap: 8px;
             min-height: 130px;
-            box-shadow: 0 10px 24px rgba(255, 62, 164, 0.2);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .hub-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 0 16px 34px rgba(255, 62, 164, 0.35); }
-        .hub-emoji { font-size: 2rem; }
-        .hub-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 1.02rem; }
-        .hub-desc { font-size: 0.82rem; color: #7c6f9c; flex: 1; }
+        .hub-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.35); }
+        .hub-emoji { font-size: 1.9rem; }
+        .hub-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.03em; }
+        .hub-desc { font-size: 0.82rem; color: #7c6f7f; flex: 1; }
         .hub-badge {
-            align-self: flex-start; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em;
+            align-self: flex-start; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
             text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
-            background: #e6fff2; color: #2f9e6b; border: 1px solid #b6f0d2;
+            background: #e6fff2; color: #2f9e6b;
         }
-        .hub-card.coming-soon { opacity: 0.75; border-style: dashed; cursor: default; }
+        .hub-card.coming-soon { opacity: 0.7; border: 2px dashed rgba(255,255,255,0.4); cursor: default; }
         .hub-card.coming-soon:hover { transform: none; }
-        .hub-card.coming-soon .hub-badge { background: #fff7e0; color: #b8860b; border-color: #ffe6a3; }
+        .hub-card.coming-soon .hub-badge { background: #fff2dd; color: #a5652b; }
 
-        /* hidden knot easter egg */
-        .knot {
-            position: fixed;
-            width: 26px; height: 26px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #4a2f1a, #2f1c10);
-            right: 18px;
-            bottom: 100px;
-            z-index: 6;
+        /* guestbook */
+        .guestbook-form { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+        .guestbook-form input {
+            flex: 1 1 200px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.88rem;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 2px solid #eee0e6;
+            outline: none;
+        }
+        .guestbook-form input:focus { border-color: var(--pink-hot); }
+        .guestbook-form button {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.04em;
+            font-size: 1.05rem;
+            background: linear-gradient(135deg, var(--pink), var(--amber));
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
             cursor: pointer;
-            box-shadow: 0 0 0 rgba(255,224,102,0);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            transition: transform 0.15s ease;
         }
-        .knot:hover { box-shadow: 0 0 16px rgba(255,224,102,0.8); transform: scale(1.15); }
-
-        /* secret modal */
-        .secret-overlay {
-            position: fixed; inset: 0; z-index: 100;
-            background: rgba(20, 10, 40, 0.75);
-            display: none;
-            align-items: center; justify-content: center;
-            padding: 20px;
-        }
-        .secret-overlay.open { display: flex; }
-        .secret-panel {
-            background: linear-gradient(160deg, #fffaf5, #ffe9f5);
-            border-radius: 24px;
-            border: 4px solid var(--pink-hot);
-            padding: 30px 26px;
-            max-width: 420px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            position: relative;
-        }
-        .secret-panel h3 { font-family: 'Baloo 2', sans-serif; color: var(--dusk); margin-bottom: 10px; font-size: 1.3rem; }
-        .secret-panel p { font-size: 0.95rem; margin-bottom: 14px; line-height: 1.5; }
-        .secret-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: #fff9c4; border: 2px solid #ffe066; border-radius: 30px;
-            padding: 6px 16px; font-weight: 700; font-size: 0.85rem; margin-bottom: 16px;
-        }
-        .secret-close {
-            font-family: 'Baloo 2', sans-serif; font-weight: 700;
-            background: var(--dusk); color: #fff; border: none; border-radius: 30px;
-            padding: 8px 22px; cursor: pointer;
-        }
+        .guestbook-form button:hover { transform: scale(1.04); }
+        .guestbook-list { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; }
+        .guestbook-entry { background: #f7f2f5; border-radius: 10px; padding: 8px 12px; font-size: 0.85rem; }
+        .guestbook-entry .who { font-weight: 700; color: var(--dusk); }
+        .guestbook-empty { font-size: 0.85rem; color: #a89bc9; font-style: italic; }
 
         .counter-box {
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-family: 'Baloo 2', sans-serif;
-            background: var(--ink); color: var(--sun);
-            border-radius: 14px; padding: 10px 18px; width: fit-content;
-            margin: 0 auto 26px; font-size: 0.82rem; letter-spacing: 0.05em;
-            box-shadow: 0 6px 16px rgba(45, 27, 78, 0.3);
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+            background: rgba(0,0,0,0.35); color: #ffd88a;
+            border-radius: 10px; padding: 8px 16px; width: fit-content;
+            margin: 0 auto 30px; font-size: 0.78rem; letter-spacing: 0.04em;
         }
-        .counter-box .digits { background: #000; color: #ffe066; padding: 2px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+        .counter-box .digits { background: #000; color: #ffd88a; padding: 2px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
 
-        .footer { text-align: center; font-size: 0.8rem; color: #fff5e6; margin-top: 20px; position: relative; z-index: 10; opacity: 0.9; }
+        /* hidden easter egg — a loose rivet on the tape case */
+        .knot {
+            position: fixed; width: 22px; height: 22px; border-radius: 50%;
+            background: radial-gradient(circle, #3a2a1a, #1c130a);
+            right: 18px; bottom: 90px; z-index: 6; cursor: pointer;
+            box-shadow: 0 0 0 rgba(255,216,138,0);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .knot:hover { box-shadow: 0 0 16px rgba(255,216,138,0.85); transform: scale(1.15); }
+
+        .secret-overlay {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(20, 10, 40, 0.78);
+            display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .secret-overlay.open { display: flex; }
+        .secret-panel {
+            background: linear-gradient(160deg, #fffaf5, #fff0e0);
+            border-radius: 18px;
+            padding: 30px 26px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+        }
+        .secret-panel h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.03em; color: var(--dusk); margin-bottom: 10px; }
+        .secret-panel p { font-size: 0.95rem; margin-bottom: 14px; line-height: 1.5; }
+        .secret-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #fff2c9; border-radius: 30px;
+            padding: 6px 16px; font-weight: 700; font-size: 0.85rem; margin-bottom: 16px;
+        }
+        .secret-close {
+            font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.03em;
+            background: var(--dusk); color: #fff; border: none; border-radius: 10px;
+            padding: 8px 22px; cursor: pointer;
+        }
+
+        .footer { text-align: center; font-size: 0.78rem; color: #fff0e0; margin-top: 10px; position: relative; z-index: 10; opacity: 0.85; }
         .footer .heart { color: var(--pink-hot); }
 
         @media (max-width: 560px) {
@@ -373,70 +268,66 @@
 <body>
 
     <div class="sparkle-field" id="sparkle-field"></div>
-    <div class="jungle-band"></div>
 
-    <div class="fairy-lights"></div>
     <div class="marquee-wrap">
-        <span class="marquee-track">🌴 welcome to culyn's treehouse 🌴 &nbsp; now playing: KATSEYE — Pinky Up 🩷 &nbsp; stitch says ohana means family 💙 &nbsp; psst... there's a secret around here somewhere 👀 &nbsp; 🌴 welcome to culyn's treehouse 🌴 &nbsp; now playing: KATSEYE — Pinky Up 🩷 &nbsp; stitch says ohana means family 💙 &nbsp; psst... there's a secret around here somewhere 👀</span>
+        <span class="marquee-track">🎧 culyn's mixtape 🎧 &nbsp; side a: KATSEYE &nbsp;·&nbsp; side b: honestav &nbsp; there's more here than meets the eye 👀 &nbsp; 🎧 culyn's mixtape 🎧 &nbsp; side a: KATSEYE &nbsp;·&nbsp; side b: honestav &nbsp; there's more here than meets the eye 👀</span>
     </div>
 
     <div class="main-wrapper">
 
-        <div class="sign" id="sign">
-            <div class="rope">🪢 🪢 🪢</div>
-            <h1>🌴 Culyn's Treehouse 🌴</h1>
-            <div class="tagline">culyn.drewcassidy.dev · climb up and look around!</div>
+        <div class="hero" id="hero">
+            <h1>CULYN'S MIXTAPE</h1>
+            <div class="tagline">culyn.drewcassidy.dev · press play and stick around</div>
         </div>
 
+        <div class="side-header a">
+            <span class="tag">SIDE A</span>
+            <span class="artist">KATSEYE</span>
+            <span class="line"></span>
+        </div>
         <div class="card">
-            <h2>🎧 Now Playing</h2>
             <div class="now-playing">
                 <div class="video-frame">
                     <iframe src="https://www.youtube.com/embed/7F1ET2XHQfk" title="KATSEYE - PINKY UP (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="playlist">
-                    <div class="playlist-label">Culyn's Playlist — KATSEYE</div>
+                    <div class="playlist-label">Track List</div>
                     <ol>
-                        <li><a href="https://www.youtube.com/watch?v=7F1ET2XHQfk" target="_blank" rel="noopener noreferrer"><span class="track-num">1</span> Pinky Up</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=-bC4iak3kxg" target="_blank" rel="noopener noreferrer"><span class="track-num">2</span> Gameboy</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=R2-yomhYAj4" target="_blank" rel="noopener noreferrer"><span class="track-num">3</span> Gnarly</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=l9CZykYZkOQ" target="_blank" rel="noopener noreferrer"><span class="track-num">4</span> Touch</a></li>
-                        <li><a href="https://www.youtube.com/watch?v=5q9EjSUovc4" target="_blank" rel="noopener noreferrer"><span class="track-num">5</span> Internet Girl</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=7F1ET2XHQfk" target="_blank" rel="noopener noreferrer"><span class="track-num">01</span> Pinky Up</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=-bC4iak3kxg" target="_blank" rel="noopener noreferrer"><span class="track-num">02</span> Gameboy</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=R2-yomhYAj4" target="_blank" rel="noopener noreferrer"><span class="track-num">03</span> Gnarly</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=l9CZykYZkOQ" target="_blank" rel="noopener noreferrer"><span class="track-num">04</span> Touch</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=5q9EjSUovc4" target="_blank" rel="noopener noreferrer"><span class="track-num">05</span> Internet Girl</a></li>
                     </ol>
-                    <div class="fact-strip">📀 "Pinky Up" is the lead single off KATSEYE's 2026 EP <strong>Wild</strong> — they're out on the <strong>Wildworld Tour</strong> right now!</div>
+                    <div class="fact-strip">"Pinky Up" is the lead single off KATSEYE's 2026 EP <strong>Wild</strong> — they're out on the <strong>Wildworld Tour</strong> right now.</div>
                 </div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>📌 About Me</h2>
-            <div class="notes-board">
-                <div class="sticky">
-                    <div class="label">Obsessed With</div>
-                    <div class="value">🎤 KATSEYE</div>
-                    <div class="sub">6 members, global girl group, EP "Wild" out now</div>
+        <div class="side-header b">
+            <span class="tag">SIDE B</span>
+            <span class="artist">honestav</span>
+            <span class="line"></span>
+        </div>
+        <div class="card side-b">
+            <div class="now-playing">
+                <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/vxh7f3p49HQ" title="honestav - Cool Kids (Official Music Video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <div class="sticky">
-                    <div class="label">Favorite Movie</div>
-                    <div class="value">🐬 Lilo &amp; Stitch</div>
-                    <div class="sub">Ohana means family. Family means nobody gets left behind.</div>
-                </div>
-                <div class="sticky">
-                    <div class="label">Favorite Creator</div>
-                    <div class="value">😂 HonestAV</div>
-                    <div class="sub">makes me laugh so hard</div>
-                </div>
-                <div class="sticky">
-                    <div class="label">Favorite Color</div>
-                    <div class="value">💙 Stitch Blue</div>
-                    <div class="sub">obviously</div>
+                <div class="playlist">
+                    <div class="playlist-label">Track List</div>
+                    <ol>
+                        <li><a href="https://www.youtube.com/watch?v=vxh7f3p49HQ" target="_blank" rel="noopener noreferrer"><span class="track-num">01</span> Cool Kids</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=SWkvpy29pRY" target="_blank" rel="noopener noreferrer"><span class="track-num">02</span> Growin' Pains</a></li>
+                    </ol>
+                    <div class="fact-strip">honestav started out making funny videos online before turning into a full-blown singer — now he tours playing his own songs.</div>
                 </div>
             </div>
         </div>
 
         <div class="counter-box">👀 <span>you are visitor #</span> <span class="digits" id="visitor-count">000001</span></div>
 
-        <span class="section-title">✨ My Stuff ✨</span>
+        <span class="section-title">✦ MY STUFF ✦</span>
         <div class="hub-grid">
             <a href="/csread/" class="hub-card">
                 <span class="hub-emoji">📖</span>
@@ -447,44 +338,44 @@
             <div class="hub-card coming-soon">
                 <span class="hub-emoji">🎀</span>
                 <div class="hub-title">More Soon</div>
-                <div class="hub-desc">Dad's adding more games, apps, and tools to your treehouse over time.</div>
+                <div class="hub-desc">Dad's adding more games, apps, and tools here over time.</div>
                 <span class="hub-badge">Coming Soon</span>
             </div>
         </div>
 
-        <div class="card" style="margin-top: 22px;">
-            <h2>💬 Guestbook</h2>
+        <div class="card" style="margin-bottom: 0;">
+            <div class="side-header" style="margin-bottom: 14px;">
+                <span class="artist" style="color: var(--ink); font-size: 1.15rem;">💬 Guestbook</span>
+            </div>
             <form class="guestbook-form" id="guestbook-form">
                 <input type="text" id="guest-name" placeholder="Your name" maxlength="24" required>
-                <input type="text" id="guest-message" placeholder="Leave a nice note!" maxlength="120" required>
-                <button type="submit">Sign it! ✍️</button>
+                <input type="text" id="guest-message" placeholder="Leave a note!" maxlength="120" required>
+                <button type="submit">SIGN</button>
             </form>
             <div class="guestbook-list" id="guestbook-list"></div>
         </div>
 
         <div class="footer">
-            built with <span class="heart">💙</span> by Dad, for Culyn &nbsp;·&nbsp; always adding more &nbsp;·&nbsp; forever a work in progress
+            built with <span class="heart">♥</span> by Dad, for Culyn &nbsp;·&nbsp; always adding more
         </div>
     </div>
 
-    <!-- hidden knot in the treehouse -->
     <div class="knot" id="knot" title=""></div>
 
     <div class="secret-overlay" id="secret-overlay">
         <div class="secret-panel">
-            <h3>🌟 You found the secret knot!</h3>
-            <p>Not everyone climbs high enough to notice it. Dad built this whole treehouse just for you — and he's going to keep adding rooms to it for as long as this place exists.</p>
-            <div class="secret-badge">🏆 Badge unlocked: Treehouse Explorer</div>
+            <h3>YOU FOUND THE HIDDEN TRACK</h3>
+            <p>Not everyone notices it. Dad built this whole page just for you — and he's going to keep adding tracks, rooms, and stuff to it for as long as this place exists.</p>
+            <div class="secret-badge">🏆 Badge unlocked: Deep Cuts</div>
             <br>
-            <button class="secret-close" id="secret-close">Back to the treehouse</button>
+            <button class="secret-close" id="secret-close">Back to the mixtape</button>
         </div>
     </div>
 
     <script>
         (function () {
-            // sparkle field
             const field = document.getElementById('sparkle-field');
-            const emojis = ['✨', '💙', '💗', '⭐', '🌺', '🦋'];
+            const emojis = ['♪', '♫', '✦', '★', '✧'];
             const count = window.innerWidth < 640 ? 12 : 22;
             for (let i = 0; i < count; i++) {
                 const s = document.createElement('span');
@@ -497,7 +388,6 @@
                 field.appendChild(s);
             }
 
-            // visitor counter (per-browser only, nostalgic gag)
             try {
                 const key = 'culyn_visitor_count';
                 let n = parseInt(localStorage.getItem(key) || '0', 10);
@@ -508,21 +398,16 @@
                 document.getElementById('visitor-count').textContent = '000001';
             }
 
-            // hidden knot -> secret panel + confetti
             const overlay = document.getElementById('secret-overlay');
             document.getElementById('knot').addEventListener('click', () => {
                 overlay.classList.add('open');
                 burstConfetti();
             });
-            document.getElementById('secret-close').addEventListener('click', () => {
-                overlay.classList.remove('open');
-            });
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) overlay.classList.remove('open');
-            });
+            document.getElementById('secret-close').addEventListener('click', () => overlay.classList.remove('open'));
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
 
             function burstConfetti() {
-                const bits = ['🎉', '✨', '🌺', '💙', '🎀', '⭐'];
+                const bits = ['♪', '✦', '★', '♫', '✧'];
                 for (let i = 0; i < 24; i++) {
                     const b = document.createElement('div');
                     b.textContent = bits[Math.floor(Math.random() * bits.length)];
@@ -530,6 +415,7 @@
                     b.style.left = (40 + Math.random() * 20) + 'vw';
                     b.style.top = '40vh';
                     b.style.fontSize = (1 + Math.random()) + 'rem';
+                    b.style.color = Math.random() > 0.5 ? '#ff6ec7' : '#ffd88a';
                     b.style.zIndex = 200;
                     b.style.pointerEvents = 'none';
                     b.style.transition = 'transform 1.2s ease-out, opacity 1.2s ease-out';
@@ -543,11 +429,8 @@
                     setTimeout(() => b.remove(), 1300);
                 }
             }
+            document.getElementById('hero').addEventListener('click', burstConfetti);
 
-            // sign click also sparkles a little, just for fun
-            document.getElementById('sign').addEventListener('click', burstConfetti);
-
-            // guestbook (local only — stored in this browser, nothing sent anywhere)
             const GB_KEY = 'culyn_guestbook';
             const list = document.getElementById('guestbook-list');
             function loadGuestbook() {
