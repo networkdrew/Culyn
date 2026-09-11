@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Culyn's corner of the internet.">
+    <title>culyn.drewcassidy.dev — Culyn's Corner</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%8B%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink: #ff6ec7;
+            --pink-soft: #ffb3e0;
+            --purple: #b388ff;
+            --sky: #7dd3fc;
+            --stitch-blue: #1e40af;
+            --stitch-blue-mid: #3b82f6;
+            --sun: #ffe066;
+            --ink: #2d1b4e;
+            --paper: #fff9fc;
+            --card-border: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--ink);
+            min-height: 100vh;
+            background: linear-gradient(160deg, #fdf0ff 0%, #e0f2ff 45%, #dff7ff 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+            cursor: default;
+        }
+
+        /* floating sparkle field */
+        .sparkle-field {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .sparkle {
+            position: absolute;
+            font-size: 1.4rem;
+            opacity: 0.55;
+            animation: float 9s ease-in-out infinite;
+            user-select: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-26px) rotate(12deg); }
+        }
+
+        /* marquee banner */
+        .marquee-wrap {
+            position: relative;
+            z-index: 5;
+            background: linear-gradient(90deg, var(--pink), var(--purple), var(--sky), var(--pink));
+            background-size: 300% 100%;
+            animation: gradient-scroll 8s linear infinite;
+            color: #fff;
+            padding: 8px 0;
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        @keyframes gradient-scroll { to { background-position: 300% 0; } }
+        .marquee-track {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 22s linear infinite;
+        }
+        @keyframes marquee { to { transform: translateX(-100%); } }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 36px 20px 60px;
+        }
+
+        /* profile header */
+        .profile-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 22px;
+            background: var(--paper);
+            border: 4px solid var(--card-border);
+            outline: 3px dashed var(--pink-soft);
+            outline-offset: -10px;
+            border-radius: 24px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 40px rgba(179, 136, 255, 0.25);
+            margin-bottom: 22px;
+        }
+        .avatar {
+            flex-shrink: 0;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, var(--stitch-blue-mid), var(--stitch-blue) 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            border: 5px solid #fff;
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.35);
+        }
+        .profile-info h1 {
+            font-family: 'Baloo 2', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .profile-info .handle {
+            font-size: 0.85rem;
+            color: #7c6f9c;
+            margin-top: 2px;
+        }
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            background: #fff0fa;
+            border: 2px solid var(--pink-soft);
+            border-radius: 30px;
+            padding: 5px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #a3488f;
+        }
+
+        /* about me / interests box */
+        .card {
+            background: var(--paper);
+            border: 3px solid #fff;
+            border-radius: 20px;
+            padding: 22px 24px;
+            box-shadow: 0 10px 28px rgba(125, 211, 252, 0.25);
+            margin-bottom: 22px;
+        }
+        .card h2 {
+            font-family: 'Baloo 2', sans-serif;
+            font-size: 1.2rem;
+            color: var(--purple);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .interest-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #fff, #fdf3ff);
+            border: 2px solid #ffe0f5;
+            border-radius: 14px;
+            padding: 12px 14px;
+        }
+        .interest-emoji { font-size: 1.6rem; }
+        .interest-text .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #b48fcf; font-weight: 600; }
+        .interest-text .value { font-weight: 600; font-size: 0.95rem; }
+
+        /* hub grid */
+        .section-title {
+            font-family: 'Baloo 2', sans-serif;
+            font-size: 1.3rem;
+            color: #fff;
+            background: linear-gradient(90deg, var(--stitch-blue-mid), var(--purple));
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+        }
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 26px;
+        }
+        .hub-card {
+            position: relative;
+            background: var(--paper);
+            border: 3px solid #fff;
+            border-radius: 20px;
+            padding: 22px 20px;
+            text-decoration: none;
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 140px;
+            box-shadow: 0 10px 24px rgba(255, 110, 199, 0.2);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .hub-card:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 16px 34px rgba(255, 110, 199, 0.35);
+        }
+        .hub-emoji { font-size: 2.1rem; }
+        .hub-title { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 1.05rem; }
+        .hub-desc { font-size: 0.85rem; color: #7c6f9c; flex: 1; }
+        .hub-badge {
+            align-self: flex-start;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: #e6fff2;
+            color: #2f9e6b;
+            border: 1px solid #b6f0d2;
+        }
+        .hub-card.coming-soon {
+            opacity: 0.75;
+            border-style: dashed;
+            cursor: default;
+        }
+        .hub-card.coming-soon:hover { transform: none; }
+        .hub-card.coming-soon .hub-badge {
+            background: #fff7e0;
+            color: #b8860b;
+            border-color: #ffe6a3;
+        }
+
+        /* fun retro counter */
+        .counter-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Baloo 2', sans-serif;
+            background: var(--ink);
+            color: var(--sun);
+            border-radius: 14px;
+            padding: 10px 18px;
+            width: fit-content;
+            margin: 0 auto 26px;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            box-shadow: 0 6px 16px rgba(45, 27, 78, 0.3);
+        }
+        .counter-box .digits {
+            background: #000;
+            color: #ffe066;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9d8fc0;
+            margin-top: 10px;
+        }
+        .footer .heart { color: var(--pink); }
+
+        @media (max-width: 560px) {
+            .profile-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sparkle-field" id="sparkle-field"></div>
+
+    <div class="marquee-wrap">
+        <span class="marquee-track">🌸 welcome to culyn's page!! 🌸 &nbsp; now playing: KATSEYE 🎧 &nbsp; stitch says ohana means family 💙 &nbsp; thanks for stopping by ✨ &nbsp; 🌸 welcome to culyn's page!! 🌸 &nbsp; now playing: KATSEYE 🎧 &nbsp; stitch says ohana means family 💙 &nbsp; thanks for stopping by ✨</span>
+    </div>
+
+    <div class="main-wrapper">
+
+        <div class="profile-header">
+            <div class="avatar">🦋</div>
+            <div class="profile-info">
+                <h1>Culyn's Corner</h1>
+                <div class="handle">culyn.drewcassidy.dev</div>
+                <div class="status-pill">✨ mood: obsessed with KATSEYE rn ✨</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💌 About Me</h2>
+            <div class="interest-grid">
+                <div class="interest-item">
+                    <span class="interest-emoji">🎤</span>
+                    <div class="interest-text">
+                        <div class="label">Favorite Group</div>
+                        <div class="value">KATSEYE</div>
+                    </div>
+                </div>
+                <div class="interest-item">
+                    <span class="interest-emoji">🐧</span>
+                    <div class="interest-text">
+                        <div class="label">Favorite Movie</div>
+                        <div class="value">Lilo &amp; Stitch</div>
+                    </div>
+                </div>
+                <div class="interest-item">
+                    <span class="interest-emoji">🎬</span>
+                    <div class="interest-text">
+                        <div class="label">Favorite Creator</div>
+                        <div class="value">HonestAV</div>
+                    </div>
+                </div>
+                <div class="interest-item">
+                    <span class="interest-emoji">💙</span>
+                    <div class="interest-text">
+                        <div class="label">Favorite Color</div>
+                        <div class="value">Stitch Blue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="counter-box">
+            👀 <span>you are visitor #</span> <span class="digits" id="visitor-count">000001</span>
+        </div>
+
+        <span class="section-title">✨ My Stuff ✨</span>
+        <div class="hub-grid">
+            <a href="/csread/" class="hub-card">
+                <span class="hub-emoji">📖</span>
+                <div class="hub-title">Reading Time</div>
+                <div class="hub-desc">A Stitch-themed reading timer with 'Ohana treasures to collect.</div>
+                <span class="hub-badge">Live</span>
+            </a>
+
+            <div class="hub-card coming-soon">
+                <span class="hub-emoji">🎀</span>
+                <div class="hub-title">More Soon</div>
+                <div class="hub-desc">Dad's adding more games, apps, and tools to your corner over time.</div>
+                <span class="hub-badge">Coming Soon</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            made with <span class="heart">💙</span> by Dad &nbsp;·&nbsp; always adding more
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // sparkle field
+            const field = document.getElementById('sparkle-field');
+            const emojis = ['✨', '💙', '💗', '⭐', '🎀'];
+            const count = window.innerWidth < 640 ? 12 : 22;
+            for (let i = 0; i < count; i++) {
+                const s = document.createElement('span');
+                s.className = 'sparkle';
+                s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                s.style.left = Math.random() * 100 + '%';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.animationDelay = (Math.random() * 6) + 's';
+                s.style.animationDuration = (7 + Math.random() * 5) + 's';
+                field.appendChild(s);
+            }
+
+            // fake but persistent-feeling visitor counter (per-browser only, MySpace-style gag)
+            try {
+                const key = 'culyn_visitor_count';
+                let n = parseInt(localStorage.getItem(key) || '0', 10);
+                n += 1;
+                localStorage.setItem(key, String(n));
+                document.getElementById('visitor-count').textContent = String(n).padStart(6, '0');
+            } catch (e) {
+                document.getElementById('visitor-count').textContent = '000001';
+            }
+        })();
+    </script>
+
+</body>
+</html>

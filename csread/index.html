@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lilo Reading">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%233b82f6'/%3E%3Cpath fill='%23ffffff' d='M50 15 C 30 15, 20 30, 20 50 C 20 75, 35 85, 50 85 C 65 85, 80 75, 80 50 C 80 30, 70 15, 50 15 Z'/%3E%3Cpath fill='%231e40af' d='M50 18 C 33 18, 24 32, 24 50 C 24 72, 38 82, 50 82 C 62 82, 76 72, 76 50 C 76 32, 67 18, 50 18 Z'/%3E%3Ccircle cx='40' cy='45' r='6' fill='%23111827'/%3E%3Ccircle cx='60' cy='45' r='6' fill='%23111827'/%3E%3Cellipse cx='50' cy='65' rx='10' ry='8' fill='%23111827'/%3E%3Cellipse cx='50' cy='63' rx='8' ry='6' fill='%23374151'/%3E%3Cpath fill='%231e40af' d='M 30 25 Q 20 15 15 30 T 25 50 L 30 45 Z' /%3E%3Cpath fill='%231e40af' d='M 70 25 Q 80 15 85 30 T 75 50 L 70 45 Z' /%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%233b82f6'/%3E%3Cpath fill='%23ffffff' d='M50 15 C 30 15, 20 30, 20 50 C 20 75, 35 85, 50 85 C 65 85, 80 75, 80 50 C 80 30, 70 15, 50 15 Z'/%3E%3Cpath fill='%231e40af' d='M50 18 C 33 18, 24 32, 24 50 C 24 72, 38 82, 50 82 C 62 82, 76 72, 76 50 C 76 32, 67 18, 50 18 Z'/%3E%3Ccircle cx='40' cy='45' r='6' fill='%23111827'/%3E%3Ccircle cx='60' cy='45' r='6' fill='%23111827'/%3E%3Cellipse cx='50' cy='65' rx='10' ry='8' fill='%23111827'/%3E%3Cellipse cx='50' cy='63' rx='8' ry='6' fill='%23374151'/%3E%3Cpath fill='%231e40af' d='M 30 25 Q 20 15 15 30 T 25 50 L 30 45 Z' /%3E%3Cpath fill='%231e40af' d='M 70 25 Q 80 15 85 30 T 75 50 L 70 45 Z' /%3E%3C/svg%3E">
+
+    <title>Culyn & Stitch's Reading Time</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+    <style>
+        /* Define Stitch color palette using CSS variables */
+        :root {
+            --stitch-blue-dark: #1e40af; /* Darker Blue */
+            --stitch-blue-medium: #3b82f6; /* Medium Blue */
+            --stitch-blue-light: #93c5fd; /* Lighter Blue */
+            --stitch-pink: #f472b6; /* Pink Accent */
+            --stitch-text-light: #ffffff;
+            --stitch-text-dark: #111827; /* Very Dark Gray/Black */
+            --font-display: 'Luckiest Guy', cursive;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* Basic body styling */
+        body {
+            font-family: var(--font-body);
+            /* Updated gradient with Stitch blues */
+            background: linear-gradient(135deg, var(--stitch-blue-light) 0%, var(--stitch-blue-medium) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--stitch-text-dark);
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: contain;
+        }
+
+        /* Ensure images don't exceed their container */
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Apply display font to headings */
+        h1, h2 { font-family: var(--font-display); letter-spacing: 1px; }
+
+        /* Text shadow for better readability on gradient */
+        .text-shadow-stitch {
+             text-shadow: 2px 2px 4px rgba(20, 30, 100, 0.4); /* Darker blue shadow */
+        }
+
+        /* Style for the timer display */
+        #timerDisplay {
+            font-family: var(--font-display); /* Use display font */
+            font-size: 3.8rem; /* Slightly larger */
+            color: var(--stitch-text-light);
+            background-color: rgba(0, 0, 0, 0.25); /* Darker overlay */
+            padding: 12px 25px;
+            border-radius: 15px; /* More rounded */
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+            min-width: 200px;
+            text-align: center;
+            user-select: none;
+            letter-spacing: 2px;
+        }
+
+        /* Button styling */
+        .action-button {
+            font-family: var(--font-display); /* Use display font */
+            padding: 12px 28px;
+            font-size: 1.2rem; /* Slightly larger */
+            letter-spacing: 1px;
+            border-radius: 9999px; /* Pill shape */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 3px solid var(--stitch-blue-dark); /* Dark border */
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+            user-select: none;
+            color: var(--stitch-text-light); /* White text */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Button text shadow */
+        }
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .action-button:active {
+            transform: translateY(0px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Specific button colors */
+        #startButton { background-color: var(--stitch-pink); border-color: #a33a74; } /* Pink */
+        #pauseButton { background-color: #fbbf24; border-color: #b45309; } /* Amber/Yellow */
+        #resumeButton { background-color: #34d399; border-color: #047857; } /* Emerald Green */
+        #stopButton { background-color: #ef4444; border-color: #991b1b; } /* Red */
+
+        /* Styling for the visual area (cover/GIF) */
+        #visualArea img {
+            border-radius: 15px; /* More rounded */
+            border: 4px solid var(--stitch-text-light); /* White border */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-height: 300px;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0.2); /* Slight bg for images */
+        }
+
+        /* Styling for the collectibles section */
+        #collectiblesGallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 15px;
+            padding: 20px; /* More padding */
+            background-color: rgba(255, 255, 255, 0.4); /* Lighter transparent white */
+            border-radius: 15px; /* More rounded */
+            margin-top: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .collectible-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            background-color: rgba(255, 255, 255, 0.7); /* Less transparent */
+            border-radius: 10px; /* More rounded */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .collectible-item:hover {
+             transform: scale(1.05);
+        }
+
+        .collectible-item img { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+        .collectible-item.locked { filter: grayscale(100%); opacity: 0.6; }
+        .collectible-item.locked::after {
+            content: '🔒'; font-size: 2rem; color: rgba(0, 0, 0, 0.5);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.6); /* Darker overlay */
+            align-items: center; justify-content: center;
+        }
+        .modal-content {
+            font-family: var(--font-body); /* Use body font for modal text */
+            background-color: #f0f9ff; /* Light blue background */
+            color: var(--stitch-text-dark);
+            margin: auto; padding: 35px; border: none;
+            width: 85%; max-width: 450px; border-radius: 15px;
+            text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .modal-close-button {
+            margin-top: 25px;
+            background-color: var(--stitch-blue-medium); /* Use medium blue */
+            border-color: var(--stitch-blue-dark);
+            color: var(--stitch-text-light);
+        }
+
+        /* Hide scrollbars */
+        ::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Button container */
+        #buttonContainer {
+            display: flex;
+            gap: 15px; /* Space between buttons */
+            justify-content: center;
+            align-items: center;
+            min-height: 60px; /* Prevent layout shift when buttons change */
+            margin-bottom: 1.5rem; /* Consistent margin */
+        }
+
+    </style>
+</head>
+<body class="flex flex-col items-center p-4 md:p-6">
+
+    <header class="mb-6 md:mb-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white text-shadow-stitch">🌺 Culyn & Stitch's Reading Time 🌴</h1>
+    </header>
+
+    <main class="flex flex-col items-center w-full max-w-2xl">
+
+        <div id="visualArea" class="mb-6 w-full max-w-sm">
+            <img id="coverImage" src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1716204940588-USETMXO0HWGEALE28YEL/cover2.jpg" alt="Lilo and Stitch Reading"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/93c5fd/111827?text=Aloha!';">
+            <img id="gifDisplay" src="" alt="Stitch GIF" class="hidden"
+                 onerror="this.onerror=null; this.src='https://placehold.co/400x300/3b82f6/ffffff?text=Loading+GIF...';">
+        </div>
+
+        <div id="timerDisplay" class="mb-6">15:00</div>
+
+        <div id="buttonContainer">
+            <button id="startButton" class="action-button">Start Reading</button>
+            <button id="pauseButton" class="action-button hidden">Pause</button>
+            <button id="resumeButton" class="action-button hidden">Resume</button>
+            <button id="stopButton" class="action-button hidden">Stop Reading</button>
+        </div>
+
+        <section class="w-full mt-4">
+            <h2 class="text-3xl font-semibold text-white mb-4 text-center text-shadow-stitch">My 'Ohana Treasures</h2>
+            <div id="collectiblesGallery" class="w-full">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto pt-6 text-center text-white text-sm opacity-90" style="font-family: var(--font-body);">
+        <p>Coded With Love by Culyn's Dad</p>
+    </footer>
+
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <p id="modalMessage" class="text-lg mb-4">Notification text goes here.</p>
+            <button id="modalClose" class="action-button modal-close-button">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const SESSION_DURATION_MINUTES = 15;
+
+        // --- ADD MORE GIFS HERE ---
+        const COUNTDOWN_GIFS = [ 'https://media.tenor.com/fI7dF4m7lFMAAAAj/stitch.gif', 'https://c.tenor.com/wCRR3EElLqYAAAAC/tenor.gif', 'https://media1.tenor.com/m/_t6rRbfUL1kAAAAC/family.gif', 'https://media.tenor.com/H5gUpayZJ6AAAAAM/lilo-and-stitch-cute.gif', 'https://i.makeagif.com/media/12-31-2022/COAIkC.gif', 'https://media0.giphy.com/media/vhzQqiAS0T71u/giphy.gif?cid=6c09b952fx0vnjq703ewuy4i62gjts8ow1pi2e5kq9oxw1as&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g', 'https://i.pinimg.com/originals/ef/05/f7/ef05f7b901a55531413fbe8528067cfb.gif', 'https://media3.giphy.com/media/w7GmOB1krzjbl8icfF/giphy.gif?cid=6c09b952esa1g8jkx6xgnkpxhvasctb39zmxvb2q3kyykpz8&ep=v1_gifs_search&rid=giphy.gif&ct=g', 'https://media1.giphy.com/media/MDUaS7Eg6rbfG/giphy.gif?cid=6c09b952b2oraryle7lil09dg4kg0s4pd2fkhvwh36fne3sb&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g', 'https://giffiles.alphacoders.com/300/30061.gif', 'https://i.pinimg.com/originals/62/81/41/6281418750a9038c1bfd1795a898d0e4.gif', 'https://www.theodysseyonline.com/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vbWVkaWEucmJsLm1zL2ltYWdlP3U9JTJGZmlsZXMlMkYyMDE1JTJGMTElMkYyMSUyRjYzNTgzNjY3NTQwOTc2OTI3MS0xNTE4OTkzOTk4X2Fkb3JhYmxlLWJlZC1ib29rLWNhcnRvb25zLUZhdmltLmNvbS0zMTE1ODAzLmdpZiZobz1odHRwJTNBJTJGJTJGY2RuMS50aGVvZHlzc2V5b25saW5lLmNvbSZzPTUyNCZoPTIyMzNiODQ3OWUwZTk4ZWYyNTY3MDY4MDliOGI2Y2RhZTVhZTdiNDRmNmNiYzc4ZDNiMDFlODQyNDdlMmU1OGImc2l6ZT05ODB4JmM9OTUzNTEwODYxIiwiZXhwaXJlc19hdCI6MTc5NDM4NDE0OH0.rjchNvy4FvoZ5JrPUp59TBqMfIjchI3OaZZUTdpP38k/image.jpg?=undefined&quality=80' ];
+
+        // --- ADD MORE COLLECTIBLES HERE ---
+        const COLLECTIBLE_ITEMS = [ { id: 'scrump', name: 'Scrump Doll', url: 'https://i.pinimg.com/736x/8a/a4/eb/8aa4ebb0845106899e8b22a413bfc1c7.jpg', unlocked: false }, { id: 'ukulele', name: 'Stitch Ukulele', url: 'https://i.pinimg.com/564x/35/14/c0/3514c016a4d97f9aee6bfdca16c8034e.jpg', unlocked: false }, { id: 'towel', name: 'Beach Towel', url: 'https://www.disneyclips.com/images/images/stitch-beach-towel.png', unlocked: false }, { id: 'holiday', name: 'Holiday Stitch', url: 'https://wallpapers.com/images/hd/holiday-stitch-cartoon-xkdi3uxo967zchuh.png', unlocked: false }, { id: 'sitting', name: 'Sitting Stitch', url: 'https://pngimg.com/d/stitch_PNG29.png', unlocked: false }, { id: 'pelekai', name: 'Pelekai', url: 'https://www.pngkey.com/png/full/149-1499286_vector-royalty-free-download-lilo-stitch-pelekai-character.png', unlocked: false }, { id: 'lilo_stitch', name: 'Lilo & Stitch', url: 'https://gallerypngs.com/wp-content/uploads/2025/02/Lilo-And-Stitch-Png-Photo.png', unlocked: false }, { id: 'tongue_out', name: 'Stitch Tongue Out', url: 'https://pngimg.com/d/stitch_PNG64.png', unlocked: false }, { id: 'cute_transparent', name: 'Cute Stitch', url: 'https://www.pngall.com/wp-content/uploads/15/Cute-Stitch-Transparent.png', unlocked: false }, { id: 'elvis', name: 'Elvis Stitch', url: 'https://www.disneyclips.com/images/images/stitch-elvis.png', unlocked: false } ];
+        const LOCAL_STORAGE_KEY = 'liloStitchReaderCollectibles_v3'; // Incremented key due to logic changes
+
+        // --- DOM ELEMENTS CACHE ---
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startButton = document.getElementById('startButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const resumeButton = document.getElementById('resumeButton');
+        const stopButton = document.getElementById('stopButton');
+        const coverImage = document.getElementById('coverImage');
+        const gifDisplay = document.getElementById('gifDisplay');
+        const collectiblesGallery = document.getElementById('collectiblesGallery');
+        const notificationModal = document.getElementById('notificationModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalCloseButton = document.getElementById('modalClose');
+
+        // --- STATE VARIABLES ---
+        let timerInterval = null;
+        const totalSeconds = SESSION_DURATION_MINUTES * 60;
+        let secondsRemaining = totalSeconds;
+        let isTimerRunning = false; // True if timer is active (running or paused)
+        let isPaused = false;      // True if timer is specifically paused
+        let collectiblesState = [];
+
+        // --- CORE FUNCTIONS ---
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        }
+
+        function updateTimerDisplay() {
+            timerDisplay.textContent = formatTime(secondsRemaining);
+        }
+
+        function showNotification(message) {
+            modalMessage.textContent = message;
+            notificationModal.style.display = 'flex';
+        }
+
+        function hideNotification() {
+            notificationModal.style.display = 'none';
+        }
+
+        function loadCollectibles() {
+            const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+            let needsReset = false;
+            if (savedState) {
+                try {
+                    const parsedState = JSON.parse(savedState);
+                    if (!Array.isArray(parsedState) || parsedState.length !== COLLECTIBLE_ITEMS.length || (parsedState.length > 0 && !parsedState[0].hasOwnProperty('unlocked'))) {
+                       throw new Error("Invalid saved state structure or length mismatch.");
+                    }
+                    collectiblesState = parsedState;
+                } catch (error) {
+                    console.error("Failed to parse/validate collectibles from localStorage, resetting:", error);
+                    needsReset = true;
+                }
+            } else {
+                needsReset = true;
+            }
+            if (needsReset) {
+                collectiblesState = JSON.parse(JSON.stringify(COLLECTIBLE_ITEMS));
+                saveCollectibles();
+            }
+            renderCollectibles();
+        }
+
+        function saveCollectibles() {
+            try {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(collectiblesState));
+            } catch (error) {
+                console.error("Failed to save collectibles to localStorage:", error);
+            }
+        }
+
+        function renderCollectibles() {
+            collectiblesGallery.innerHTML = '';
+            collectiblesState.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('collectible-item');
+                itemDiv.setAttribute('aria-label', item.name + (item.unlocked ? '' : ' (Locked)'));
+                if (item.unlocked) {
+                    const img = document.createElement('img');
+                    img.src = item.url;
+                    img.alt = item.name;
+                    img.loading = 'lazy';
+                    img.onerror = function() {
+                        this.onerror = null;
+                        this.parentElement.innerHTML = `<span class="text-xs text-gray-500 p-1 text-center">Error loading ${item.name}</span>`;
+                        this.parentElement.style.alignItems = 'center';
+                        this.parentElement.style.justifyContent = 'center';
+                    };
+                    itemDiv.appendChild(img);
+                } else {
+                    itemDiv.classList.add('locked');
+                }
+                collectiblesGallery.appendChild(itemDiv);
+            });
+        }
+
+        function unlockNextCollectible() {
+            const nextLockedIndex = collectiblesState.findIndex(item => !item.unlocked);
+            if (nextLockedIndex !== -1) {
+                collectiblesState[nextLockedIndex].unlocked = true;
+                saveCollectibles();
+                renderCollectibles();
+                showNotification(`🎉 Hooray! You've unlocked the ${collectiblesState[nextLockedIndex].name}! Keep reading!`);
+            } else {
+                showNotification("Wow! You've collected all the 'Ohana Treasures! Keep up the amazing reading! 📚");
+            }
+        }
+
+        function displayRandomGif() {
+            if (COUNTDOWN_GIFS.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * COUNTDOWN_GIFS.length);
+            gifDisplay.src = COUNTDOWN_GIFS[randomIndex];
+            coverImage.classList.add('hidden');
+            gifDisplay.classList.remove('hidden');
+        }
+
+        function showCoverImage() {
+            gifDisplay.classList.add('hidden');
+            gifDisplay.src = "";
+            coverImage.classList.remove('hidden');
+        }
+
+        /**
+         * Updates the visibility of control buttons based on timer state.
+         */
+        function updateButtonVisibility() {
+            startButton.classList.toggle('hidden', isTimerRunning);
+            pauseButton.classList.toggle('hidden', !isTimerRunning || isPaused);
+            resumeButton.classList.toggle('hidden', !isTimerRunning || !isPaused);
+            stopButton.classList.toggle('hidden', !isTimerRunning);
+        }
+
+        /**
+         * Starts the timer from the beginning.
+         */
+        function startTimer() {
+            if (isTimerRunning) return; // Should not happen if buttons are managed correctly
+
+            isTimerRunning = true;
+            isPaused = false;
+            secondsRemaining = totalSeconds; // Start from full duration
+            updateTimerDisplay();
+            displayRandomGif();
+            updateButtonVisibility(); // Show Pause/Stop, hide Start
+
+            // Start the interval
+            timerInterval = setInterval(() => {
+                secondsRemaining--;
+                updateTimerDisplay();
+                if (secondsRemaining <= 0) {
+                    stopTimer(true); // Timer finished naturally
+                }
+            }, 1000);
+        }
+
+        /**
+         * Pauses the currently running timer.
+         */
+        function pauseTimer() {
+            if (!isTimerRunning || isPaused) return; // Can only pause if running
+
+            isPaused = true;
+            clearInterval(timerInterval); // Stop the interval
+            timerInterval = null;
+            updateButtonVisibility(); // Show Resume/Stop, hide Pause
+            // GIF remains visible while paused
+        }
+
+        /**
+         * Resumes the paused timer.
+         */
+        function resumeTimer() {
+            if (!isTimerRunning || !isPaused) return; // Can only resume if paused
+
+            isPaused = false;
+            updateButtonVisibility(); // Show Pause/Stop, hide Resume
+
+            // Restart interval, continuing from current time
+            timerInterval = setInterval(() => {
+                secondsRemaining--;
+                updateTimerDisplay();
+                if (secondsRemaining <= 0) {
+                    stopTimer(true); // Timer finished naturally
+                }
+            }, 1000);
+        }
+
+        /**
+         * Stops the timer completely, resets it, and hides active buttons.
+         * @param {boolean} [finished=false] - True if the timer reached 0 naturally.
+         */
+        function stopTimer(finished = false) {
+            if (!isTimerRunning) return; // Only stop if it was running or paused
+
+            isTimerRunning = false;
+            isPaused = false;
+            if (timerInterval) {
+                clearInterval(timerInterval); // Clear interval if it exists
+                timerInterval = null;
+            }
+
+            secondsRemaining = totalSeconds; // Reset time
+            updateTimerDisplay();
+            showCoverImage(); // Show cover image
+            updateButtonVisibility(); // Show Start, hide others
+
+            // Award collectible ONLY if timer finished naturally
+            if (finished) {
+                unlockNextCollectible();
+            }
+            // No award if stopped manually via the stop button
+        }
+
+        // --- EVENT LISTENERS SETUP ---
+        function setupEventListeners() {
+            startButton.addEventListener('click', startTimer);
+            pauseButton.addEventListener('click', pauseTimer);
+            resumeButton.addEventListener('click', resumeTimer);
+            // Pass false to stopTimer to indicate it was a manual stop
+            stopButton.addEventListener('click', () => stopTimer(false));
+
+            modalCloseButton.addEventListener('click', hideNotification);
+            notificationModal.addEventListener('click', (event) => {
+                if (event.target === notificationModal) {
+                    hideNotification();
+                }
+            });
+        }
+
+        // --- INITIALIZATION ---
+        function initializeApp() {
+            loadCollectibles();
+            updateTimerDisplay(); // Set initial display (e.g., "15:00")
+            setupEventListeners();
+            registerServiceWorker();
+            // Ensure initial button state is correct (only Start visible)
+            updateButtonVisibility();
+             // Set initial button text correctly based on config
+            startButton.textContent = `Start Reading`; // Simplified text
+        }
+
+        // --- SERVICE WORKER REGISTRATION (Code unchanged from previous version) ---
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    const CACHE_NAME = 'lilo-reader-cache-v3'; // Updated cache name
+                    const urlsToCache = ['/'];
+                    self.addEventListener('install', event => {
+                        console.log('[SW] Install event');
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => {
+                                    console.log('[SW] Opened cache:', CACHE_NAME);
+                                    return cache.addAll(urlsToCache.map(url => new Request(url, { cache: 'reload' })));
+                                })
+                                .then(() => {
+                                    console.log('[SW] App Shell cached successfully');
+                                    return self.skipWaiting();
+                                })
+                                .catch(error => { console.error('[SW] App Shell caching failed:', error); })
+                        );
+                    });
+                    self.addEventListener('activate', event => {
+                        console.log('[SW] Activate event');
+                        const cacheWhitelist = [CACHE_NAME];
+                        event.waitUntil(
+                            caches.keys().then(cacheNames => {
+                                return Promise.all(
+                                    cacheNames.map(cacheName => {
+                                        if (cacheWhitelist.indexOf(cacheName) === -1) {
+                                            console.log('[SW] Deleting old cache:', cacheName);
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            }).then(() => {
+                                console.log('[SW] Claiming clients');
+                                return self.clients.claim();
+                            })
+                        );
+                    });
+                    self.addEventListener('fetch', event => {
+                        if (event.request.mode === 'navigate') {
+                            event.respondWith(
+                                caches.match(event.request)
+                                    .then(response => {
+                                        if (response) { return response; }
+                                        return fetch(event.request).then(
+                                            networkResponse => {
+                                                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                                                    return networkResponse;
+                                                }
+                                                const responseToCache = networkResponse.clone();
+                                                caches.open(CACHE_NAME)
+                                                    .then(cache => { cache.put(event.request, responseToCache); });
+                                                return networkResponse;
+                                            }
+                                        ).catch(error => { console.error('[SW] Network fetch failed:', error); });
+                                    })
+                            );
+                        } else { return; }
+                    });
+                `;
+                try {
+                    const blob = new Blob([swCode], { type: 'application/javascript' });
+                    const swUrl = URL.createObjectURL(blob);
+                    navigator.serviceWorker.register(swUrl)
+                        .then(registration => { console.log('Service Worker registered successfully. Scope:', registration.scope); })
+                        .catch(error => { console.error('Service Worker registration failed:', error); });
+                    navigator.serviceWorker.addEventListener('controllerchange', () => { console.log('New service worker has taken control.'); });
+                } catch (error) { console.error("Error creating/registering Service Worker Blob:", error); }
+            } else { console.log('Service Workers not supported.'); }
+        }
+
+        // --- START THE APP ---
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+    </script>
+
+</body>
+</html>
